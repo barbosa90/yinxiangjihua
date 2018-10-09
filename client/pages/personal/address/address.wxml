@@ -1,0 +1,8 @@
+<view>{{addrDatas.def_address}}</view>
+<view>{{addrDatas.def_phone}}</view>
+<view></view>
+<view>{{addrDatas.address1}}</view>
+<view>{{addrDatas.phone1}}</view>
+<view></view>
+<view>{{addrDatas.address2}}</view>
+<view>{{addrDatas.phone2}}</view>

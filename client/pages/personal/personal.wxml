@@ -1,0 +1,65 @@
+
+<view class="head">
+  <view class="header header-icon">
+    <view>
+     <image bindtap="bindViewTap" class="userinfo-avatar" src="{{globalUserInfo.avatarUrl}}" mode="cover"></image>
+    </view>
+  </view>
+  <view class="header header-nick">
+    <view class="nickname">{{globalUserInfo.nickName}}</view>
+  </view>
+  <view class="header-points header-font"><view style="width:100%">积分<text class='points'>{{baseUser.points}}</text>会员等级<text class='vip_level'>{{baseUser.vip_flag}}</text></view></view>
+</view>
+  
+<view class="menu1">
+  <view class="menu1-button-view" bindtap='toAccount'><view class="menu1-button">
+  <view class="menu1-btn-img"></view><view class='menu1-btn-font'>账户</view>
+  </view></view>
+  <view class="menu1-button-view" bindtap=''><view class="menu1-button">
+  <view class="menu1-btn-img"></view><view class='menu1-btn-font'>订单</view>
+  </view></view>
+  <view class="menu1-button-view" bindtap=''><view class="menu1-button">
+  <view class="menu1-btn-img"></view><view class='menu1-btn-font'>好友</view>
+  </view></view>
+  <view class="menu1-button-view" bindtap=''><view class="menu1-button">
+  <view class="menu1-btn-img"></view><view class='menu1-btn-font'>地图</view>
+  </view></view>
+</view>
+
+<view class="label header-line"></view>
+<view style='display:none'>
+  <form bindsubmit="{{submitType}}Submit" bindreset="{{submitType}}formReset">
+  <view class="label"><text class="label">姓名</text></view>
+  <view class="input">
+    <input type="text" name="reg_name" value="{{baseUser.reg_name}}"></input>
+  </view>
+  <view class="label"><text class="label">电话</text></view>
+  <view class="input">
+    <input type="phone" name="reg_phone" value="{{baseUser.reg_phone}}"></input>
+  </view>
+  <view class="label">
+    <text class="label">城市</text>
+    <text class="label" wx:if="{{!hasUserInBase}}">(取自微信)</text>
+  </view>
+  <view class="input">
+    <input type="text" name="city" value="{{baseUser.city}}"></input>
+  </view>
+  <view class="label">
+    <text class="label">省市</text>
+    <text class="label" wx:if="{{!hasUserInBase}}">(取自微信)</text>
+  </view>
+  <view class="input">
+    <input type="text" name="province" value="{{baseUser.province}}"></input>
+  </view>
+  <view class="label">
+    <text class="label">默认地址</text>
+  </view>
+  <view wx:if="{{submitType}} == 'update'">
+      <input type="text" name="addr" value=""></input>
+  </view>
+  <view class="btn-area">
+    <button formType="submit">{{submitLabel}}</button>
+    <!-- <button formType="reset">重置</button> -->
+  </view>
+  </form>
+</view>

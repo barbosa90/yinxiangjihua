@@ -1,0 +1,11 @@
+<!--pages/bill/bill.wxml-->
+
+<view class="container">
+<view>{{msg}}</view>
+<view>订单id:{{pre_order_id}}</view>
+<view>失效时间:{{selfDestroy}}</view>
+<view></view>
+<view wx:if="{{!disAvaliable}}" bindtap='getPaySign_Server' class=" button wxpay">微信支付 {{totalCost/100.00}}￥</view>
+<view wx:if="{{disAvaliable}}" bindtap='cancel' class=" button cancel">{{errormsg}}</view>
+<view wx:if="{{!disAvaliable}}" bindtap='cancel' class=" button cancel">取消</view>
+</view>

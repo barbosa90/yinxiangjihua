@@ -1,0 +1,69 @@
+/* pages/personal/personal.wxss */
+.userinfo-avatar {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  float:left;
+}
+.head {
+  background-image: url({{globalUserInfo.avatarUrl}});
+  background-color: orange;
+}
+.header-nick{
+  font-size: 48px;
+  height: 54px;
+  width: 70%;
+  background-color: transparent;
+  color: black;
+}
+.header{
+  margin-top: 0px
+}
+.input{
+  border: orchid;
+  border-style: solid;
+  border-width: 1px;
+  font-size: 30px;
+  height:40px
+}
+input{
+  height:40px
+}
+
+.label{
+  margin-top: 5px;
+  color: gray;
+  font-size: 30px;
+  float: none;
+}
+.header-line{
+  border-bottom-style: solid;
+  border-bottom-color: black;
+  border-bottom-width: 5px;
+  border-top-right-radius: 50%;
+  border-bottom-right-radius: 50%;
+  margin-top: 10px;
+  float:none;
+}
+.points{
+  color: #00e500;
+  margin-right: 20px
+}
+.header-points{
+  width: 100%;
+  height: 25px;
+  background-color: transparent;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-self: center;
+}
+.header-font{
+  color:white;
+}
+.header-icon{
+  top:0px;
+  height:64px;
+  background-color: transparent;
+  float: left;
+}

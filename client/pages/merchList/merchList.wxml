@@ -1,0 +1,29 @@
+<!--client/pages/merchList/merchList.wxml-->
+<picker mode="region" bindchange="bindRegionEvent" data-model="component" 
+data-method="bindSelect" data-name="region" value="" custom-item="">
+<view class="picker">
+      当前选择：{{region[0]}}{{region[1]}}{{region[2]}}
+      筛选方式：{{condition}}
+</view>
+<view class="msg" wx:if="{{msg}} == '无结果'">
+      {{msg}}
+</view>
+</picker>
+<view class="mainList" style='margin-top:5px;margin-bottom:55px;background-color:blue'>
+    主页商品罗列 商品
+    <view wx:for="{{merchList}}" wx:for-item="merch" wx:for-index="index" wx:key="id">
+    border
+     <view class="framelook" hover-class='merchHover' data-merchid='{{merch.id}}' bindtap='toMerchDetail'>
+        <view class="merchImg" style='margin:auto;height:130px;width:96%;background-color:green'>
+            <image src="{{merch.graphUrl}}" class="index-merch-image" />
+          <view class="merchName" >
+          {{merch.name}}
+          </view>
+        </view>
+        <view class="merchTitle" style='margin-left:2%;margin-top:2px;height:45px;width:96%;background-color:red'>
+        {{merch.describeTitle}}
+        </view>
+      </view>
+    </view>
+    <button style="height:50px" bindtap='next'>next</button>
+  </view>

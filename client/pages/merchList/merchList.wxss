@@ -1,0 +1,6 @@
+/* client/pages/merchList/merchList.wxss */
+.index-merch-image{
+ width: 100%;
+ height: 100%;
+ float: left;
+}

@@ -1,0 +1,13 @@
+<import src="temp.wxml"/>
+
+<view>
+  <template is="merchInfo" data="{{merch_Id: merchData.id,merch_Name:merchData.name,merch_Cost:merchData.cost}}"/>
+</view>
+
+<view class='merchBody'>
+介绍
+</view>
+
+<view class="footer" style=''>
+  <button class='buy' bindtap='buy'>购买 </button>
+</view>

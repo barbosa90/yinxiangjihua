@@ -1,0 +1,5 @@
+<!--pages/map/map.wxml-->
+<view class="fullscreen">
+<map longitude="{{user_longitude}}" latitude="{{user_latitude}}" class=""></map>
+
+</view>

@@ -1,0 +1,9 @@
+<template name="merchInfo">
+  <text>
+  这是商品{{merch_Id}}的信息
+  \n
+  名称:{{merch_Name}}
+  
+  金额:{{merch_Cost / 100.00}}￥
+  </text>
+</template>

@@ -1,0 +1,11 @@
+/* pages/preOrder/preOrder.wxss */
+.radio{
+  width:10%;
+  float:left;
+}
+.phone{
+  margin-left:10%;
+}
+.address{
+  margin-right:10%;
+}

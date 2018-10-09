@@ -1,0 +1,53 @@
+<!--pages/preOrder/preOrder.wxml-->
+<form bindsubmit='submit_preorder'>
+<view class=''>
+
+<radio-group name='addr_phone' class="radio-group">
+    <view wx:if="{{addrData.def_address}}">
+      <label class="radio">
+          <radio value="def" checked="true"/>
+      </label>
+      <view class='selected address'>{{addrData.def_address}}</view>
+      <view class='selected phone'>联系电话：{{addrData.def_phone}}</view>
+    </view>
+    <view wx:if="{{addrData.address1}}">
+    <label class="radio">
+        <radio value="1"/>
+    </label>
+    <view class='address'>{{addrData.address1}}</view>
+    <view class='phone'>联系电话：{{addrData.phone1}}</view>
+    </view>
+    <view wx:if="{{addrData.address2}}">
+      <label class="radio">
+          <radio value="2"/>
+      </label>
+      <view class='address'>{{addrData.address2}}</view>
+      <view class='phone'>联系电话：{{addrData.phone2}}</view>
+    </view>
+</radio-group>
+</view>
+
+  
+<view>maxAmount:{{maxAmount}}</view>
+<view>购买数量:{{chooseAmount}}</view>
+<view>价格: {{merchData.cost /100.00}} ￥</view>
+<view>品名: {{merchData.name}}</view>
+<view>合计: {{merchData.cost * chooseAmount /100.00}} ￥</view>
+
+<view class="items">
+    <text class="section__title">数量</text>
+    <view class="btn-sm btn_minus" bindtap='decreaseAmount'>-</view>
+    <input style='margin-left:5px;width:200px' bindinput='setChoose' type="number" name="amount" value="{{chooseAmount}}"></input>
+    <view class="btn-sm btn_plus" bindtap='increaseAmount'>+</view>
+</view>
+<view class="body-view">
+      <slider bindchange="setChoose" min="{{minimalAmount}}" max="{{maxAmount}}"  show-value value="{{chooseAmount}}" step="1"/>
+</view>
+<view></view>
+<view>拥有积分 {{user.points}}</view><view>使用积分 {{choosePoints}}</view>
+<input style='margin-left:5px;width:500px' bindinput='setPoints' type="number" name="points" value="{{choosePoints}}"></input>
+
+<view>合计: {{totalCost / 100.00}} ￥</view>
+
+<button formType="submit">选好了提交form</button>
+</form>
