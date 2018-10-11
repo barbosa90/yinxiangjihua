@@ -19,7 +19,7 @@ var getMerchDetail = (params) => {
     connection.connect(function (err) {
       if (err != null) console.log(err)
     })
-    var queryString = 'SELECT a.*,Graphs.graph_blob FROM (SELECT * FROM Merchandise LEFT JOIN Merch_content ON (Merchandise.id = Merch_content.merchid  )) a LEFT JOIN Graphs ON Graphs.id = a.graphid ORDER BY id LIMIT ?,?;'
+    var queryString = 'SELECT a.*,Graphs.graph_blob FROM (SELECT * FROM Merchandise LEFT JOIN Merch_content ON (Merchandise.id = Merch_content.merchid  )) a LEFT JOIN Graphs ON Graphs.id = a.graphid ORDER BY showTime LIMIT ?,?;'
     var quantity = parseInt(params.quantity)
     var page = params.page
     var start = (params.page - 1) >= 0 ? (params.page - 1) : 0
@@ -27,9 +27,9 @@ var getMerchDetail = (params) => {
     params = [ start , quantity ]
     connection.query(queryString, params, function (err, rows, fields) {
 
-      if (err != null) resolve(err)
+      if (err != null) reject(err)
 
-      resolve(rows)
+      else resolve(rows)
     });
     connection.end()
   })

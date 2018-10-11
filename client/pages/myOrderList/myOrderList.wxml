@@ -1,5 +1,19 @@
 <!--pages/myOrderList/myOrderList.wxml-->
-<text>pages/myOrderList/myOrderList.wxml</text>
-<view>
-  <icon class="aliIconfont icon-home"></icon>
-  </view>
+<view class="mainList" style='margin-top:5px;margin-bottom:55px;background-color:milk'>
+    购物列表
+  <view wx:for="{{preOrderList}}" wx:for-item="p_order" wx:for-index="index" wx:key="id">
+   --------------
+    <view>{{p_order.id}}</view>
+   
+    <view class="framelook" hover-class='merchHover' data-merchid='{{p_order.id}}' bindtap='toMerchDetail'>
+      <view class="merchTitle" style=''>
+        状态：未完成
+        失效时间：{{p_order.showDestroyTime}}
+        <view class="merchTitle" wx:if="{{p_order.avaliable}}" style='color:blue'>
+        继续支付
+        </view>
+      </view>
+    </view> 
+  </view> 
+</view>
+

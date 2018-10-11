@@ -27,9 +27,9 @@ var pickOutOneMerch = (params) => {
     var params = [id, amount];
     connection.query(updateString, params, function (err, rows, fields) {
 
-      if (err != null) resolve(err)
+      if (err != null) reject(err)
 
-      resolve(rows)
+      else resolve(rows)
     });
     
     connection.end()

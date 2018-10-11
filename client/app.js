@@ -76,6 +76,22 @@ App({
     })
     console.log("launch over")
   },
+  // onHide: function(){//临时
+  //   if (this.globalData.preOrderingId){
+  //     console.log("ordering out")
+  //     this.refillAmount(this.globalData.preOrderingId, this.globalData.preOrderingAmount)
+  //   }
+  // },
+  // refillAmount: function (merchid, amount) {
+  //   var updateData = {
+  //     id: merchid,
+  //     amount: amount
+  //   }
+  //   var amountUpdate = wxRequest.getRequest(app.globalData.serverUri + "/refillMerch", updateData, {})
+  //   amountUpdate.then(this.amountUpdateSuccessful, this.amountUpdateFail)
+  //   console.log("恢复商品可购买数量：" + this.data.amountHold)
+
+  // },
   globalData: {
     userInfo: null,
     openid: null,

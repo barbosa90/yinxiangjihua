@@ -35,7 +35,7 @@ var querySql = (params, uuid) => {
         console.log(err)
       }
     })
-    var insertPreOrder = "INSERT INTO `Pre_order` (`id`, `userid`, `merchid`, `builtTime`, `destroyTime`, `payStatus`, `discount`, `points`, `pointsUsed`, `merchCost`, `finalCost`, `address`, `phone`) VALUES (?, ?, ?, CURRENT_TIMESTAMP, date_add(NOW(), interval 2 MINUTE), '0', ?, ?, ?, ?, ?, ?, ?);"
+    var insertPreOrder = "INSERT INTO `Pre_order` (`id`, `userid`, `merchid`, `builtTime`, `destroyTime`, `payStatus`, `discount`, `points`, `pointsUsed`, `merchCost`, `finalCost`, `address`, `phone`) VALUES (?, ?, ?, CURRENT_TIMESTAMP, date_add(NOW(), interval 10 MINUTE), '0', ?, ?, ?, ?, ?, ?, ?);"
     var queryPreOrder = "SELECT destroyTime FROM Pre_order WHERE id = ?;"
     var params = [uuid, userid, merchid, discount, points, pointsUsed,merchCost,finalCost, address, phone, uuid]
     connection.query(insertPreOrder + queryPreOrder, params, function (err, result) {

@@ -2,7 +2,7 @@
 import request from '../../utils/wxRequest.js'
 const wxRequest = new request
 const appconfig = require('../../config.js')
-const serverHost = appconfig.service.host
+const serverHost = appconfig.service.serverUri
 import toast from '../../utils/toast.js'
 const wxToast = new toast
 Page({
@@ -74,13 +74,12 @@ Page({
 
   },
   query_numbersOf_Merch: function (quantity, page) {
-    var serverUri = this.data.serverUri
     var param = {
       quantity: quantity,
       page : page
     }
     var header = { 'content-type': 'application/json' }
-    var promise = wxRequest.getRequest(serverHost + "/weapp" + "/somemerch", param, header)
+    var promise = wxRequest.getRequest(serverHost + "/somemerch", param, header)
     promise.then(this.someMerchCallbackSuccessful, this.someMerch_Fail)
   },
   someMerch_Fail: function (value) {
@@ -90,7 +89,7 @@ Page({
     }
   },
   someMerchCallbackSuccessful: function (value) {
-    console.log(value)
+
     var datas = value.data
     if (datas.length == 0){
       wxToast.toastSafe_short("到底了")
@@ -157,16 +156,15 @@ Page({
     this.queryRegionMerches(regionData.value, this.data.quantity, this.data.page)
   },
   queryRegionMerches: function (regionValue, quantity, page){
-    console.log(regionValue)
-    //regionValue目前用三级
-    console.log(regionValue)
+ //regionValue目前用三级
+
     this.setData({
       condition: "region" 
     })
     var params = {
       l: regionValue[0], sl: regionValue[1], el: regionValue[2], quantity: quantity, page: page} 
     var header = { 'content-type': 'application/json' }
-    var promise = wxRequest.getRequest(serverHost + "/weapp" + "/regionmerch", params, header)
+    var promise = wxRequest.getRequest(serverHost + "/regionmerch", params, header)
     promise.then(this.regionMerchCallback_Successful, this.regionMerch_Fail)
   },
   regionMerchCallback_Successful:function(result){
@@ -199,5 +197,30 @@ Page({
     this.setData({
       msg: '无结果'
     })
+  },
+  toMerchDetailCallbackSuccessful: function (value) {
+    if (value.statusCode == 200 || value.statusCode == '200') {
+      var merchData = value.data[0]
+      var merchid = merchData.id
+      wx.navigateTo({
+        url: '../merchandises/merchDetail?merchData=' + JSON.stringify(merchData)
+      })
+    }
+  },
+  toMerchDetail: function (e) {
+    var merchid = e.currentTarget.dataset.merchid
+    var merchIdJson = { id: merchid }
+    var header = { 'content-type': 'application/json' }
+    var promise = wxRequest.getRequest(serverHost + "/onemerch", merchIdJson, header)
+    promise.then(this.toMerchDetailCallbackSuccessful)
+  },
+  toMerchDetailCallbackSuccessful: function (value) {
+    if (value.statusCode == 200 || value.statusCode == '200') {
+      var merchData = value.data[0]
+      var merchid = merchData.id
+      wx.navigateTo({
+        url: '../merchandises/merchDetail?merchData=' + JSON.stringify(merchData)
+      })
+    }
   }
 })

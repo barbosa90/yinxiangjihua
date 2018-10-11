@@ -15,7 +15,7 @@
   <view class="menu1-button-view" bindtap='toAccount'><view class="menu1-button">
   <view class="menu1-btn-img"></view><view class='menu1-btn-font'>账户</view>
   </view></view>
-  <view class="menu1-button-view" bindtap=''><view class="menu1-button">
+  <view class="menu1-button-view" bindtap='toMyOrders'><view class="menu1-button">
   <view class="menu1-btn-img"></view><view class='menu1-btn-font'>订单</view>
   </view></view>
   <view class="menu1-button-view" bindtap=''><view class="menu1-button">

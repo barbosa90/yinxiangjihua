@@ -1,4 +1,11 @@
 // pages/myOrderList/myOrderList.js
+const app = getApp()
+import request from '../../utils/wxRequest.js'
+const wxRequest = new request
+const appconfig = require('../../config.js')
+import toast from '../../utils/toast.js'
+const wxToast = new toast
+
 Page({
 
   /**
@@ -12,7 +19,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    this.queryOnesPreOrders(app.globalData.baseUser.id)
   },
 
   /**
@@ -62,5 +69,72 @@ Page({
    */
   onShareAppMessage: function () {
   
+  },
+  queryOnesPreOrders: function (userid) {
+    var serverUri = app.globalData.serverUri
+    var merchIdJson = { userid: userid }
+    var header = { 'content-type': 'application/json' }
+    var promise = wxRequest.getRequest(serverUri + "/queryOnesPreOrders", merchIdJson, header)
+    promise.then(this.queryOnesPreOrdersSuccessful)
+  },
+  queryOnesPreOrdersSuccessful:function(result){
+    console.log(result)
+    var orderArray = result.data
+    var refillMap = new Map()
+    console.log(refillMap)
+    for(var i = 0; i < orderArray.length; i++){
+      var order = orderArray[i]
+      var destroyTime = order.destroyTime
+      var destroyDT = new Date(destroyTime)
+      var showDestroyTime = destroyDT.toLocaleString()
+      var avaliable = true
+      if (destroyDT.getTime() < new Date().getTime()){
+        avaliable = false
+      }
+      order.showDestroyTime = showDestroyTime
+      order.avaliable = avaliable
+      var merchid = order.merchid
+      var currMerchRefillAmount = 0
+      if (refillMap.get(merchid) == null){
+        currMerchRefillAmount = 0
+        refillMap.set(merchid, currMerchRefillAmount);
+      }else{
+        currMerchRefillAmount = refillMap.get(merchid)
+      }
+      console.log(order.payStatus)
+      if (!avaliable && order.payStatus == 0){//0代表未支付状态，1代表支付完成，2代表未支付且已经恢复数量了（结束了，取消了）
+        currMerchRefillAmount++;
+        refillMap.set(merchid, currMerchRefillAmount);
+      }
+    }
+    console.log(refillMap)
+    this.refillAll(refillMap)
+    this.setData({
+      preOrderList:result.data
+    })
+  },
+  refillAll: function(map){
+    var refillAmount = this.refillAmount
+    map.forEach(function (item, key, mapObj) {
+      var merchid = key
+      var amount = map.get(key)
+      refillAmount(merchid, amount)
+    });
+  },
+  refillAmount: function (merchid, amountHold) {
+    var updateData = {
+      id: merchid,
+      amount: amountHold
+    }
+    var amountUpdate = wxRequest.getRequest(app.globalData.serverUri + "/refillMerch", updateData, {})
+    amountUpdate.then(this.amountUpdateSuccessful, this.amountUpdateFail)
+    console.log("恢复商品可购买数量：" + amountHold)
+
+  },
+  amountUpdateSuccessful:function(data){
+    console.log(data)
+  },
+  amountUpdateFail: function(err){
+    console.log(err)
   }
 })

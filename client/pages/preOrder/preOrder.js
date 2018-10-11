@@ -48,9 +48,50 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
-  },
+    console.log("show")
+    this.checkStatus(this.queryOneMerchAmount)
 
+  },
+  checkStatus: function (checkMerchAmount) {//session?
+    if (app.globalData.baseUser.openId == app.globalData.openid) {
+      checkMerchAmount()
+    } else {
+      wxToast.toastSafe_normal('服务器忙，获取个人信息失败')
+    }
+  },
+  queryAmountFail: function (reject) {
+    console.log(reject)
+  },
+  queryOneMerchAmount: function () {
+    var queryData = {
+      id: this.data.merchData.id
+    }
+    var amountQuery = wxRequest.getRequest(app.globalData.serverUri + "/queryOneMerchAmount", queryData, this.data.header)
+    amountQuery.then(this.queryAmountSuccessful, this.queryAmountFail)
+  },
+  queryAmountSuccessful: function (resolve) {
+    var amountData = resolve.data[0]
+    var amount = amountData.amount
+    if (amount > 0) {
+      var md = this.data.merchData //刷新数量 
+      md.amount = amount
+      this.data.maxAmount = amount
+      this.setData({
+        merchData: md,
+        maxAmount : amount
+      })
+    } else {
+      setTimeout(
+        function() {
+          wx.navigateTo({
+            url: '../index/index'
+          })
+        }, 1000
+      )
+      wxToast.toastSafe_normal('soldout')
+
+    }
+  },
   /**
    * 生命周期函数--监听页面隐藏
    */
@@ -201,7 +242,7 @@ Page({
   },
   pickOutMerchSuccessful: function (result){
     console.log(result)
-    if (result.statusCode == 200 && result.data.affectedRows > 0) {
+    if (true) {
       wxRequest.getRequest(app.globalData.serverUri + '/createPreOrder', this.data.orderParams, {}).then(this.createOrderSuccessful, this.creatOrderFail)
     }else{
       wxToast.toastSafe_normal('服务器繁忙')
@@ -209,6 +250,7 @@ Page({
   },
   pickOutMerchFail:function(err){
     console.log(err)
+    wxToast.toastSafe_normal('服务器繁忙')
   },
   createOrderSuccessful:function(result){
     if (result.statusCode == 200 && result.data.msg == 'sqlsucceed'){

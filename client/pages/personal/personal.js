@@ -277,5 +277,10 @@ Page({
     wx.navigateTo({
       url: './account/account'
     })
+  },
+  toMyOrders:function(){
+    wx.navigateTo({
+      url: '../myOrderList/myOrderList'
+    })
   }
 })

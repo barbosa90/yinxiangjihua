@@ -24,7 +24,8 @@
     "node-uuid": "^1.4.8",
     "qs": "^6.3.0",
     "request": "^2.87.0",
-    "wafer-node-sdk": "^1.4.5"
+    "wafer-node-sdk": "^1.4.5",
+    "xmlreader": "^0.2.3"
   },
   "devDependencies": {
     "babel-eslint": "^7.1.0",
@@ -36,4 +37,3 @@
     "eslint-plugin-standard": "^2.0.1"
   }
 }
-

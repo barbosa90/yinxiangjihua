@@ -35,7 +35,7 @@
     </view>
   </view>
   <view style='position:fixed;bottom:-5px;width:100%;height:50px;'>
-  <button class="home" style='width:25%;border-radius:0px;float:left' bindtap='tomap'><icon class="aliIconfont icon-home"></icon></button>
+  <button class="home" style='width:25%;border-radius:0px;float:left' bindtap='tomap'><icon class="aliIconfont icon-map"></icon></button>
   <button class="filterlist" style='width:25%;border-radius:0px;float:left' bindtap='toAllMerchList'><icon class="aliIconfont icon-list"></icon></button>
     <button style='width:25%;border-radius:0px;float:left' bindtap='myOrder'><icon class="aliIconfont icon-order"></icon></button>
     <button class="meNotAuth" wx:if="{{!hasUserInfo}}" open-type="getUserInfo" style='width:25%;border-radius:0px;float:left' bindgetuserinfo='getUserInfo'>授权</button>

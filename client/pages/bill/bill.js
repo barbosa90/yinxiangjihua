@@ -19,7 +19,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    app.globalData.preOrderingId = options.merchid
     var selfDestroy = new Date(options.selfDestroy)
+    var testdate = new Date(options.selfDestroy).toLocaleDateString()+" "+new Date(options.selfDestroy).toLocaleTimeString()
     this.setData({
       pre_order_id: options.pre_order_id,
       amountHold: options.amount,
@@ -27,22 +29,21 @@ Page({
       totalCost: Number(options.totalCost),
       selfDestroy: selfDestroy,
       timerId: this.setTimer(selfDestroy),
-      errormsg:"服务器繁忙请重试",
-      disAvaliable:false,
-      paying:false
+      errormsg: "服务器繁忙请重试",
+      disAvaliable: false,
+      paying: false,
+      testdate: testdate
     })
     
   },
   setTimer: function (selfDestroyTime){
-    var interval = 120000 //2分钟超时
-    if (selfDestroyTime != null){
+    var interval = 600000 //10分钟超时
+    if (selfDestroyTime != null){//优先使用数据库设置的时间
       interval = selfDestroyTime.getTime()
       var now = new Date().getTime()
+
       interval = interval - now
     }
-    //测试
-    interval = 5000
-      console.log(interval)
     var disAvaliable = this.disAvaliable
 
     return setTimeout(function () {
@@ -55,7 +56,7 @@ Page({
     }
     this.setData({
       disAvaliable: true,
-      pre_order_id:null,
+      pre_order_id: null,
       errormsg:"支付超时，请重新选择"
     })
     
@@ -89,7 +90,7 @@ Page({
     console.log('unload')
     if (!this.data.disAvaliable){
       clearTimeout(this.data.timerId)
-      this.refillAmount()
+      //this.refillAmount()
     }
   },
 
@@ -150,7 +151,7 @@ Page({
       delta: 1
     })
   },
-  refillAmount:function(){//需要测试
+  refillAmount:function(){
     var updateData = {
       id: this.data.merchid,
       amount: this.data.amountHold
@@ -167,12 +168,13 @@ Page({
     console.log(err)
   },
   getPaySign_Server: function(){
-    wxRequest.getRequest(app.globalData.serverUri + '/getPaySign', {},{}).then(this.setPaySign,function(err){
+    var params = { money: this.data.totalCost, orderID: this.data.pre_order_id }
+    wxRequest.getRequest(app.globalData.serverUri + '/wxpayApi', {},{}).then(this.setPaySign,function(err){
       console.log(err)
     })
   },
   setPaySign:function(result){
-    console.log(result)
+console.log(result)
     if (result.data.paySign){
       this.payapi(result.data)
     }
@@ -181,6 +183,30 @@ Page({
     this.setData({
       disAvaliable:true // unload页面的时候就不会refill了
     })
+  },
+  toMerchDetailCallbackSuccessful: function (value) {
+    if (value.statusCode == 200 || value.statusCode == '200') {
+      var merchData = value.data[0]
+      var merchid = merchData.id
+      wx.navigateTo({
+        url: '../merchandises/merchDetail?merchData=' + JSON.stringify(merchData)
+      })
+    }
+  },
+  toMerchDetail: function (merchid) {
+    var merchIdJson = { id: merchid }
+    var header = { 'content-type': 'application/json' }
+    var promise = wxRequest.getRequest(app.globalData.serverUri + "/onemerch", merchIdJson, header)
+    promise.then(this.toMerchDetailCallbackSuccessful)
+  },
+  toMerchDetailCallbackSuccessful: function (value) {
+    if (value.statusCode == 200 || value.statusCode == '200') {
+      var merchData = value.data[0]
+      var merchid = merchData.id
+      wx.navigateTo({
+        url: '../merchandises/merchDetail?merchData=' + JSON.stringify(merchData)
+      })
+    }
   }
 })
 
