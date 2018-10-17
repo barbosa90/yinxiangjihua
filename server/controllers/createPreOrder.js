@@ -22,6 +22,7 @@ var querySql = (params, uuid) => {
   let finalCost = params.finalCost
   let address = params.address
   let phone = params.phone
+  let amount = params.amount
   let merchAmountLeft = params.merchAmountLeft
   console.log(uuid)
   return new Promise((resolve, reject) => {
@@ -35,9 +36,9 @@ var querySql = (params, uuid) => {
         console.log(err)
       }
     })
-    var insertPreOrder = "INSERT INTO `Pre_order` (`id`, `userid`, `merchid`, `builtTime`, `destroyTime`, `payStatus`, `discount`, `points`, `pointsUsed`, `merchCost`, `finalCost`, `address`, `phone`) VALUES (?, ?, ?, CURRENT_TIMESTAMP, date_add(NOW(), interval 10 MINUTE), '0', ?, ?, ?, ?, ?, ?, ?);"
+    var insertPreOrder = "INSERT INTO `Pre_order` (`id`, `userid`, `merchid`, `builtTime`, `destroyTime`, `payStatus`, `discount`, `points`, `pointsUsed`, `merchCost`, `finalCost`, `address`, `phone`,`amount`) VALUES (?, ?, ?, CURRENT_TIMESTAMP, date_add(NOW(), interval 10 MINUTE), '0', ?, ?, ?, ?, ?, ?, ?, ?);"
     var queryPreOrder = "SELECT destroyTime FROM Pre_order WHERE id = ?;"
-    var params = [uuid, userid, merchid, discount, points, pointsUsed,merchCost,finalCost, address, phone, uuid]
+    var params = [uuid, userid, merchid, discount, points, pointsUsed, merchCost, finalCost, address, phone, amount, uuid]
     connection.query(insertPreOrder + queryPreOrder, params, function (err, result) {
 
       if (err != null) {

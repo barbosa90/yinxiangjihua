@@ -33,8 +33,7 @@
       </view>
     </view>
     </view>
-  </view>
-  <view style='position:fixed;bottom:-5px;width:100%;height:50px;'>
+    <view style='position:fixed;bottom:-5px;width:100%;height:50px;'>
   <button class="home" style='width:25%;border-radius:0px;float:left' bindtap='tomap'><icon class="aliIconfont icon-map"></icon></button>
   <button class="filterlist" style='width:25%;border-radius:0px;float:left' bindtap='toAllMerchList'><icon class="aliIconfont icon-list"></icon></button>
     <button style='width:25%;border-radius:0px;float:left' bindtap='myOrder'><icon class="aliIconfont icon-order"></icon></button>
@@ -42,4 +41,6 @@
     <button class="me" wx:if="{{hasUserInfo}}" style='width:25%;border-radius:0px;float:left' bindtap='myInfo'><icon class="{{motto}}"></icon></button>
     <button class="me" wx:if="{{hasUserInfo}}" style='width:25%;border-radius:0px;float:left' bindtap='tomap'><icon class="aliIconfont icon-map"></icon></button>
   </view>
+  </view>
+  
 </view>

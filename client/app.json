@@ -11,7 +11,8 @@
     "pages/personal/address/address",
     "pages/bill/bill",
     "pages/map/map",
-    "pages/merchList/merchList"
+    "pages/merchList/merchList",
+    "pages/myOrder/myOrder"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -19,7 +20,7 @@
     "navigationBarTitleText": "音享计划",
     "navigationBarTextStyle": "black"
   },
-  "locaiton":{
+  "locaiton": {
     "110000": {
       "name": "北京市",
       "child": {

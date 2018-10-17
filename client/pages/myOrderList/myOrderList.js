@@ -33,7 +33,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+    this.queryOnesPreOrders(app.globalData.baseUser.id)
   },
 
   /**
@@ -81,34 +81,33 @@ Page({
     console.log(result)
     var orderArray = result.data
     var refillMap = new Map()
-    console.log(refillMap)
     for(var i = 0; i < orderArray.length; i++){
       var order = orderArray[i]
       var destroyTime = order.destroyTime
       var destroyDT = new Date(destroyTime)
       var showDestroyTime = destroyDT.toLocaleString()
-      var avaliable = true
-      if (destroyDT.getTime() < new Date().getTime()){
-        avaliable = false
-      }
       order.showDestroyTime = showDestroyTime
-      order.avaliable = avaliable
-      var merchid = order.merchid
-      var currMerchRefillAmount = 0
-      if (refillMap.get(merchid) == null){
-        currMerchRefillAmount = 0
-        refillMap.set(merchid, currMerchRefillAmount);
-      }else{
-        currMerchRefillAmount = refillMap.get(merchid)
-      }
-      console.log(order.payStatus)
-      if (!avaliable && order.payStatus == 0){//0代表未支付状态，1代表支付完成，2代表未支付且已经恢复数量了（结束了，取消了）
-        currMerchRefillAmount++;
-        refillMap.set(merchid, currMerchRefillAmount);
+      if (order.payStatus == 0){
+        this.orderCheck(order)
+        var merchid = order.merchid
+        var currMerchRefillAmount = 0
+        if (refillMap.get(merchid) == null) {
+          currMerchRefillAmount = 0
+          refillMap.set(merchid, currMerchRefillAmount);
+        } else {
+          currMerchRefillAmount = refillMap.get(merchid)
+        }
+        console.log(order.payStatus)
+        if (!order.avaliable && order.payStatus == 0) {//0代表未支付状态，1代表支付完成，2代表未支付且已经恢复数量了（结束了，取消了）
+          currMerchRefillAmount++;
+          refillMap.set(merchid, currMerchRefillAmount);
+        }
       }
     }
     console.log(refillMap)
-    this.refillAll(refillMap)
+    
+    this.changePreOrderStatus(orderArray)
+    this.refillAll(refillMap)//上方
     this.setData({
       preOrderList:result.data
     })
@@ -136,5 +135,54 @@ Page({
   },
   amountUpdateFail: function(err){
     console.log(err)
+  },
+  changePreOrderStatus: function (orderArray){
+    var orderids = ''
+    for (var i = 0; i < orderArray.length; i++) {
+      var order = orderArray[i]
+      if(order.avaliable){
+        continue
+      }
+      if(orderids.length > 0){
+        orderids += ','
+      }
+      orderids += order.id
+    }
+    var data = {
+      orderids: orderids,
+      to: 2
+    }
+
+    var update = wxRequest.getRequest(app.globalData.serverUri + "/updatePreOrderStatus",data , {})
+    update.then(this.updateStatusSuccessful, this.updateStatusFail)
+  },
+  updateStatusSuccessful:function(result){
+    console.log(result)
+  },
+  updateStatusFail:function(err){
+    console.log(err)
+  },
+  queryOnePreOrder: function (tapData){
+    var orderid = tapData.currentTarget.dataset.orderid
+    var data = {
+      orderid: orderid
+    }
+    var query = wxRequest.getRequest(app.globalData.serverUri + "/queryOnePreOrder", data, {})
+    query.then(this.queryOnePreOrderSuccessful, this.queryOnePreOrderFail)
+  },
+  queryOnePreOrderSuccessful:function(result){
+    var orderData = result.data[0]
+    wx.navigateTo({
+      url: '../myOrder/myOrder?orderData=' + JSON.stringify(orderData)
+    })
+  },
+  orderCheck: function (order){
+    var destroyTime = order.destroyTime
+    var destroyDT = new Date(destroyTime)
+    var avaliable = true
+    if (destroyDT.getTime() < new Date().getTime()) {
+      avaliable = false
+    }
+    order.avaliable = avaliable
   }
 })

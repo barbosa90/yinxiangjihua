@@ -45,6 +45,8 @@ const querySomeMerch = require('./controllers/querySomeMerch')
 const queryRegionMerch = require('./controllers/queryRegionMerch')
 const wxpayApi = require('./controllers/wxpayApi')
 const queryOnesPreOrders = require('./controllers/queryOnesPreOrders')
+const updatePreOrderStatus = require('./controllers/updatePreOrderStatus')
+const queryOnePreOrder = require('./controllers/queryOnePreOrder')
 
 //查询一个merch用id
 app.use(routes.get('/weapp/onemerch',queryOneMerchById))
@@ -82,6 +84,9 @@ app.use(routes.get('/weapp/getPaySign', getPaySign))
 
 app.use(routes.get('/weapp/refillMerch', refillMerch))
 app.use(routes.get('/weapp/queryOnesPreOrders', queryOnesPreOrders))
+app.use(routes.get('/weapp/updatePreOrderStatus', updatePreOrderStatus))
+app.use(routes.get('/weapp/queryOnePreOrder', queryOnePreOrder))
+
 
 app.use(routes.get('/weapp/wxpayApi', wxpayApi))
 var appid = 'wx72c209e92fbd2ea3'

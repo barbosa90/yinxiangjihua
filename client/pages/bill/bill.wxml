@@ -7,5 +7,5 @@
 <view></view>
 <view wx:if="{{!disAvaliable}}" bindtap='getPaySign_Server' class=" button wxpay">微信支付 {{totalCost/100.00}}￥</view>
 <view wx:if="{{disAvaliable}}" bindtap='cancel' class=" button cancel">{{errormsg}}</view>
-<view wx:if="{{!disAvaliable}}" bindtap='cancel' class=" button cancel">取消</view>
+<view wx:if="{{!disAvaliable}}" bindtap='cancel' class=" button cancel">稍后支付，返回</view>
 </view>

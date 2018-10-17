@@ -2,18 +2,37 @@
 <view class="mainList" style='margin-top:5px;margin-bottom:55px;background-color:milk'>
     购物列表
   <view wx:for="{{preOrderList}}" wx:for-item="p_order" wx:for-index="index" wx:key="id">
-   --------------
-    <view>{{p_order.id}}</view>
-   
-    <view class="framelook" hover-class='merchHover' data-merchid='{{p_order.id}}' bindtap='toMerchDetail'>
-      <view class="merchTitle" style=''>
-        状态：未完成
-        失效时间：{{p_order.showDestroyTime}}
-        <view class="merchTitle" wx:if="{{p_order.avaliable}}" style='color:blue'>
-        继续支付
+    <view bindtap='queryOnePreOrder' data-orderid="{{p_order.id}}">
+    --------------
+      <view>{{p_order.id}}</view>
+    
+      <view class="" hover-class='merchHover' data-merchid='' bindtap='toMerchDetail'>
+        <view class="" style=''>
+          状态：未完成
+          失效时间：{{p_order.showDestroyTime}}
+          <view class="" wx:if="{{p_order.avaliable}}" style='color:blue'>
+          继续支付
+          </view>
         </view>
-      </view>
+      </view> 
     </view> 
-  </view> 
+  </view>
+
+  <view wx:for="{{orderList}}" wx:for-item="order" wx:for-index="index" wx:key="id">
+    <view bindtap='queryOneOrder' data-orderid="{{order.id}}">
+    --------------
+      <view>{{order.id}}</view>
+    
+      <view class="" hover-class='merchHover' data-merchid='' bindtap='toMerchDetail'>
+        <view class="" style=''>
+          状态：完成支付
+          失效时间：{{order.showDestroyTime}}
+          <view class="" wx:if="{{order.avaliable}}" style='color:blue'>
+          退款
+          </view>
+        </view>
+      </view> 
+    </view> 
+  </view>
 </view>
 
