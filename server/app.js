@@ -44,7 +44,7 @@ const imageByGid = require('./controllers/imageByGid')
 const querySomeMerch = require('./controllers/querySomeMerch')
 const queryRegionMerch = require('./controllers/queryRegionMerch')
 const wxpayApi = require('./controllers/wxpayApi')
-const queryOnesPreOrders = require('./controllers/queryOnesPreOrders')
+const queryUserPreOrders = require('./controllers/queryUserPreOrders')
 const updatePreOrderStatus = require('./controllers/updatePreOrderStatus')
 const queryOnePreOrder = require('./controllers/queryOnePreOrder')
 
@@ -83,13 +83,13 @@ app.use(routes.get('/weapp/pickOutMerch', pickOutMerch))
 app.use(routes.get('/weapp/getPaySign', getPaySign))
 
 app.use(routes.get('/weapp/refillMerch', refillMerch))
-app.use(routes.get('/weapp/queryOnesPreOrders', queryOnesPreOrders))
+app.use(routes.get('/weapp/queryOnesPreOrders', queryUserPreOrders))
 app.use(routes.get('/weapp/updatePreOrderStatus', updatePreOrderStatus))
 app.use(routes.get('/weapp/queryOnePreOrder', queryOnePreOrder))
 
 
 app.use(routes.get('/weapp/wxpayApi', wxpayApi))
-var appid = 'wx72c209e92fbd2ea3'
+var appid = 'wx2be3c27f24305fe4'
 var appsecret = '0aeaad70334bc747f8e97f7e5b2d4897'
 var mchid = '1499403456'//
 var mchkey = '8r435jVd7yA0354nsvkxb4cN3x7Se4322'//

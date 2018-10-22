@@ -74,7 +74,7 @@ Page({
     var serverUri = app.globalData.serverUri
     var merchIdJson = { userid: userid }
     var header = { 'content-type': 'application/json' }
-    var promise = wxRequest.getRequest(serverUri + "/queryOnesPreOrders", merchIdJson, header)
+    var promise = wxRequest.getRequest(serverUri + "/queryUserPreOrders", merchIdJson, header)
     promise.then(this.queryOnesPreOrdersSuccessful)
   },
   queryOnesPreOrdersSuccessful:function(result){
