@@ -154,5 +154,19 @@ Page({
     this.setData({
       order:order
     })
+    alert('已关闭订单')
+  },
+
+  payOrder:function(){
+    var order = this.data.order
+    var pre_order_id = order.id
+    var totalCost = order.finalCost
+    var selfDestroyTime = order.destroyTime
+    var amount = order.amount
+    var merchid = order.merchid
+
+    wx.navigateTo({
+      url: '../bill/bill?pre_order_id=' + pre_order_id + "&totalCost=" + totalCost + "&selfDestroy=" + selfDestroyTime + "&amount=" + amount + "&merchid=" + merchid
+    })
   }
 })

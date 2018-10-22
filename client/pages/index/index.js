@@ -67,8 +67,7 @@ Page({
     }
     this.getIndexSwiper()
     this.queryIndexMerch()
-    console.log(app.globalData.openid)
-    console.log(app.globalData.loginDone)
+
     if (app.globalData.openid != null && app.globalData.loginDone != true){
       console.log("login in index")
       this.queryOneUser()
@@ -345,5 +344,18 @@ Page({
 
     // urls[0] = 'http://pic.jia360.com/ueditor/jsp/upload/201612/01/35741480574582640.jpg'
     // urls[1] = 'https://indexswiper-1256803452.cos.ap-beijing.myqcloud.com/swiper_1.jpg?sign=q-sign-algorithm%3Dsha1%26q-ak%3DAKIDWoCcexIG0paklJVtkpGvFFqjYw14akWF%26q-sign-time%3D1531229733%3B1531231533%26q-key-time%3D1531229733%3B1531231533%26q-header-list%3D%26q-url-param-list%3D%26q-signature%3D206aacc8282a762601a28697714390744f6dbbd8&token=1d04292c0b7c42fca53b3fc4566b81530165eb6610001&clientIP=114.245.171.185&clientUA=fcf0c313-a398-426a-ac4f-b0521e541c84'
+  },
+  test:function(){
+    var serverUri = this.data.serverUri
+
+    var header = { 'content-type': 'application/json' }
+    var test = wxRequest.getRequest(serverUri + '/test', {}, header)
+    test.then(this.test1, this.test2)
+  },
+  test1:function(r){
+    console.log(r)
+  },
+  test2: function (e) {
+    console.log(e)
   }
 })

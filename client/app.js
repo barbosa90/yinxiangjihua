@@ -41,10 +41,13 @@ App({
                 }
               }
             }, function (rej) {
-              console.log(rej)
               if (rej.statusCode == 502){
                 wx.navigateTo({
-                  url: '../error/error'
+                  url: '../error/error?errCode=' + rej.statusCode + "&errMsg="+rej.error
+                })
+              }else{
+                wx.navigateTo({
+                  url: '../error/error?errCode='+rej.statusCode
                 })
               }
             }

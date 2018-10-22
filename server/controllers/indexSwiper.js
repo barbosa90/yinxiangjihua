@@ -26,7 +26,7 @@ var query = (params) => {
     var paramsArr = []
     connection.query(selectString, paramsArr, function (err, rows, fields) {
 
-      if (err != null) resolve(err)
+      if (err != null) reject(err)
 
       else resolve(rows)
     });

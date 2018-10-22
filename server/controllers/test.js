@@ -17,18 +17,8 @@ var test = () => {
     var mysql = require('mysql')
     var connection = mysql.createConnection(conf)
     connection.connect(function (err) {
-      if (err != null) console.log(err)
-    })
-    var queryString = 'SELECT a.*,Graphs.graph_blob FROM (SELECT * FROM Merchandise JOIN Merch_content ON (Merchandise.id = Merch_content.merchid  AND Merch_content.used_in = "index")) a ,Graphs WHERE Graphs.id = a.graphid;'
-    var params = [];
-    connection.query(queryString, params, function (err, rows, fields) {
-
       if (err != null) reject(err)
-
-      resolve(rows)
-    });
-    //SELECT * FROM `Merchandise` WHERE id = "201805282015"
+    })
     connection.end()
   })
 }
-

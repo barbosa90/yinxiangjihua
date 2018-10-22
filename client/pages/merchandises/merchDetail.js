@@ -28,6 +28,7 @@ Page({
     this.checkStatus(this.queryOneMerchAmount)
   },
   queryAmountSuccessful:function(resolve){
+    console.log(resolve)
     var amountData = resolve.data[0]
     var amount = amountData.amount
     if (amount > 0) {

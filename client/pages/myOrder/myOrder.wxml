@@ -11,8 +11,8 @@
         </view>
       </view> 
     </view> 
-<view class="" wx:if="{{order.avaliable}}" style='color:blue'>
-支付
+<view class="" bindtap='payOrder' wx:if="{{order.avaliable}}" style='color:blue'>
+去支付
 </view>
 <view class="" bindtap='cancelOrder' wx:if="{{order.avaliable}}" style='color:blue'>
 取消
