@@ -8,7 +8,7 @@ import toast from '../../utils/toast.js'
 const wxToast = new toast
 Page({
   data: {
-    serverUri:'https://hvb9jjr1.qcloud.la/weapp',
+    serverUri: 'https://www.yinxiangjihua.cn/weapp', //'https://hvb9jjr1.qcloud.la/weapp',
     motto: 'aliIconfont icon-user',//'完善信息',//
     userInfo: {},
     hasUserInfo: false,
@@ -28,6 +28,9 @@ Page({
   //事件处理函数
   onLoad: function () {
     console.log("onload")
+    this.setData({
+      serverUri: appconfig.service.serverUri
+    })
     app.globalData.serverUri = this.data.serverUri
     app.globalData.loginCallBack = this.queryOneUser
     wx.showLoading({
@@ -254,7 +257,7 @@ Page({
     this.setData({ motto: 'aliIconfont icon-user'})
   },
   getIndexSwiper:function(){
-    var promise = wxRequest.getRequest(app.globalData.serverUri + "/getIndexSwipers", {}, {})
+    var promise = wxRequest.getRequest(app.globalData.serverUri + "/indexSwipper2", {}, {})
     promise.then(this.getIndexSwiperSuccessful, this.getIndexSwiperFail)
   },
   getIndexSwiperSuccessful:function(result){

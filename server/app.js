@@ -47,6 +47,9 @@ const wxpayApi = require('./controllers/wxpayApi')
 const queryUserPreOrders = require('./controllers/queryUserPreOrders')
 const updatePreOrderStatus = require('./controllers/updatePreOrderStatus')
 const queryOnePreOrder = require('./controllers/queryOnePreOrder')
+//test
+const indexSwipper2 = require('./controllers/indexSwipper2')
+app.use(routes.get('/weapp/indexSwipper2', indexSwipper2))
 
 //查询一个merch用id
 app.use(routes.get('/weapp/onemerch',queryOneMerchById))
@@ -59,7 +62,11 @@ app.use(routes.get('/weapp/somemerch', querySomeMerch))
 app.use(routes.get('/weapp/regionmerch', queryRegionMerch))
 
 app.use(routes.get('/weapp/queryIndexMerch', queryIndexMerch))
+
 app.use(routes.get('/weapp/getIndexSwipers', indexSwiper))
+
+
+
 app.use(routes.get('/weapp/imageByGid', imageByGid))
 //增加一个用户
 app.use(routes.get('/weapp/addUser', addUser))
@@ -142,6 +149,9 @@ var wxurl = ''//'/weapp/getPaySign'//
 //   }
 //   })
 // })
+
+
+
 
 app.listen(config.port, () => debug(`listening on port ${config.port}`))
 console.log('server start')
