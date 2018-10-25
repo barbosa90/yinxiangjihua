@@ -90,7 +90,7 @@ app.use(routes.get('/weapp/pickOutMerch', pickOutMerch))
 app.use(routes.get('/weapp/getPaySign', getPaySign))
 
 app.use(routes.get('/weapp/refillMerch', refillMerch))
-app.use(routes.get('/weapp/queryOnesPreOrders', queryUserPreOrders))
+app.use(routes.get('/weapp/queryUserPreOrders', queryUserPreOrders))
 app.use(routes.get('/weapp/updatePreOrderStatus', updatePreOrderStatus))
 app.use(routes.get('/weapp/queryOnePreOrder', queryOnePreOrder))
 
