@@ -165,7 +165,7 @@ Page({
   queryOnePreOrder: function (tapData){
     var orderid = tapData.currentTarget.dataset.orderid
     var data = {
-      orderid: orderid
+      id: orderid
     }
     var query = wxRequest.getRequest(app.globalData.serverUri + "/queryOnePreOrder", data, {})
     query.then(this.queryOnePreOrderSuccessful, this.queryOnePreOrderFail)
