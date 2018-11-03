@@ -76,9 +76,9 @@ Page({
     var merchIdJson = { userid: userid }
     var header = { 'content-type': 'application/json' }
     var promise = wxRequest.getRequest(serverUri + "/queryUserPaidOrders", merchIdJson, header)
-    promise.then(this.queryOnesPreOrdersSuccessful)
+    promise.then(this.queryOnesPaidOrdersSuccessful)
   },
-  queryOnesPreOrdersSuccessful: function (result) {
+  queryOnesPaidOrdersSuccessful: function (result) {
     console.log(result)
     var orderArray = result.data
     var refillMap = new Map()
@@ -93,6 +93,7 @@ Page({
       var deadlineDT = new Date(deadline)
       var showDeadLine = deadlineDT.toLocaleString()
       order.showDeadLine = showDeadLine
+      this.orderCheck(order,order.DEADLINE)
       console.log(order)
       // if (order.payStatus == 0) {
         //this.orderCheck(order)
@@ -137,7 +138,7 @@ Page({
       var showDestroyTime = destroyDT.toLocaleString()
       order.showDestroyTime = showDestroyTime
       if (order.payStatus == 0){
-        this.orderCheck(order)
+        this.orderCheck(order,order.destroyTime)
         var merchid = order.merchid
         var currMerchRefillAmount = 0
         if (refillMap.get(merchid) == null) {
@@ -225,11 +226,14 @@ Page({
       url: '../myOrder/myOrder?orderData=' + JSON.stringify(orderData)
     })
   },
-  orderCheck: function (order){
-    var destroyTime = order.destroyTime
-    var destroyDT = new Date(destroyTime)
+  orderCheck: function (order,time){
+    if(time == null) {
+      order.avaliable = true
+      return
+    }
+    var DT = new Date(time)
     var avaliable = true
-    if (destroyDT.getTime() < new Date().getTime()) {
+    if (DT.getTime() < new Date().getTime()) {
       avaliable = false
     }
     order.avaliable = avaliable
