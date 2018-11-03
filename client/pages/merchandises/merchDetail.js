@@ -1,11 +1,13 @@
 const app = getApp()
 import request from '../../utils/wxRequest.js'
 const wxRequest = new request
+const appconfig = require('../../config.js')
+const serverHost = appconfig.service.serverUri
 import toast from '../../utils/toast.js'
 const wxToast = new toast
 Page({
   data: {
-    serverUri: 'https://hvb9jjr1.qcloud.la/weapp',
+    serverUri: serverHost,
     merchData: {},
     chooseAmount:1,
     minimalAmount:1,

@@ -3,6 +3,8 @@ const app = getApp()
 import request from '../../utils/wxRequest.js'
 const wxRequest = new request
 const appconfig = require('../../config.js')
+import toast from '../../utils/toast.js'
+const wxToast = new toast
 Page({
 
   /**
@@ -154,7 +156,7 @@ Page({
     this.setData({
       order:order
     })
-    alert('已关闭订单')
+    wxToast.toastSafe_normal('已关闭订单')
   },
 
   payOrder:function(){
