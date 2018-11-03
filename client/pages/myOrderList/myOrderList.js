@@ -20,6 +20,7 @@ Page({
    */
   onLoad: function (options) {
     this.queryOnesPreOrders(app.globalData.baseUser.id)
+    this.queryOnesPaidOrders(app.globalData.baseUser.id)
   },
 
   /**
@@ -69,6 +70,54 @@ Page({
    */
   onShareAppMessage: function () {
   
+  },
+  queryOnesPaidOrders: function (userid) {
+    var serverUri = app.globalData.serverUri
+    var merchIdJson = { userid: userid }
+    var header = { 'content-type': 'application/json' }
+    var promise = wxRequest.getRequest(serverUri + "/queryUserPaidOrders", merchIdJson, header)
+    promise.then(this.queryOnesPreOrdersSuccessful)
+  },
+  queryOnesPreOrdersSuccessful: function (result) {
+    console.log(result)
+    var orderArray = result.data
+    var refillMap = new Map()
+    for (var i = 0; i < orderArray.length; i++) {
+      var order = orderArray[i]
+      var paidTime = order.PAIDTIME
+      var paidTimeDT = new Date(paidTime)
+      var showPaidTime = paidTimeDT.toLocaleString()
+      order.showPaidTime = showPaidTime
+
+      var deadline = order.DEADLINE
+      var deadlineDT = new Date(deadline)
+      var showDeadLine = deadlineDT.toLocaleString()
+      order.showDeadLine = showDeadLine
+      console.log(order)
+      // if (order.payStatus == 0) {
+        //this.orderCheck(order)
+        // var merchid = order.merchid
+        // var currMerchRefillAmount = 0
+        // if (refillMap.get(merchid) == null) {
+        //   currMerchRefillAmount = 0
+        //   refillMap.set(merchid, currMerchRefillAmount);
+        // } else {
+        //   currMerchRefillAmount = refillMap.get(merchid)
+        // }
+        // console.log(order.payStatus)
+        // if (!order.avaliable && order.payStatus == 0) {
+        //   currMerchRefillAmount++;
+        //   refillMap.set(merchid, currMerchRefillAmount);
+        // }
+      // }
+    }
+    console.log(refillMap)
+
+    // this.changePreOrderStatus(orderArray)
+    // this.refillAll(refillMap)//上方
+    this.setData({
+      paidOrderList: result.data
+    })
   },
   queryOnesPreOrders: function (userid) {
     var serverUri = app.globalData.serverUri
