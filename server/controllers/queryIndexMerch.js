@@ -19,7 +19,7 @@ var test = () => {
     connection.connect(function (err) {
       if (err != null) console.log(err)
     })
-    var queryString = 'SELECT a.*,Graphs.graph_blob FROM (SELECT * FROM Merchandise JOIN Merch_content ON (Merchandise.id = Merch_content.merchid  AND Merch_content.used_in = "index")) a ,Graphs WHERE Graphs.id = a.graphid;'
+    var queryString = 'SELECT a.*,Graphs.graph_blob FROM (SELECT * FROM Merchandise JOIN Merch_content ON (Merchandise.id = Merch_content.merchid  AND Merch_content.mainPage != null)) a ,Graphs WHERE Graphs.id = a.mainPage;'
     var params = [];
     connection.query(queryString, params, function (err, rows, fields) {
 

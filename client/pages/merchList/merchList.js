@@ -101,6 +101,7 @@ Page({
         if (datas[i].graph_blob != null) {
           var graphic = datas[i].graph_blob.data
           datas[i].graphUrl = this.madeIndexGraphUrl(graphic)
+          console.log(datas[i].graphUrl)
         }
       } catch (e) {
         console.log(e)
@@ -223,4 +224,5 @@ Page({
       })
     }
   }
+  
 })

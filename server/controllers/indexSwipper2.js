@@ -6,6 +6,6 @@ module.exports = async (ctx, next) => {
   var query = require('../api/mysqlPool.js')
 
   var params = []
-  var chunk = await query('SELECT Graphs.graph_blob,Merch_content.merchid FROM Graphs,Merch_content WHERE Merch_content.graphid = Graphs.id AND Merch_content.used_in = "swiper"',params)
+  var chunk = await query('SELECT Graphs.graph_blob,Merch_content.merchid FROM Graphs,Merch_content WHERE Merch_content.swipper = Graphs.id AND Merch_content.swipper != null',params)
   ctx.body = chunk
 }
