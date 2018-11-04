@@ -42,7 +42,7 @@ var query = (params) => {
     console.log(start)
     console.log(params.quantity)
     
-    var paramsUsed = [params.l, params.sl, params.el, start, quantity]
+    var paramsUsed = [params.l, params.sl, params.el, start + '', quantity + '']
     console.log(paramsUsed)
     connection.query(queryString3, paramsUsed, function (err, rows, fields) {
 
