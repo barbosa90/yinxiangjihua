@@ -23,7 +23,7 @@ var query = (params) => {
 
     if (params != null) {
       if (params.sl != null) {
-        locationstring = ' AND Merchandise.subLocation = ?'
+        locationstring += ' AND Merchandise.subLocation = ?'
       }
       if (params.el != null) {
         locationstring += ' AND Merchandise.endLocation = ?'
@@ -36,14 +36,8 @@ var query = (params) => {
     var page = params.page
     var start = (page - 1) >= 0 ? (page - 1) : 0
     start = start * quantity
-    console.log(params.l)
-    console.log(params.sl)
-    console.log(params.el)
-    console.log(start)
-    console.log(params.quantity)
-    
     var paramsUsed = [params.l, params.sl, params.el, start + '', quantity + '']
-    console.log(paramsUsed)
+
     connection.query(queryString3, paramsUsed, function (err, rows, fields) {
 
       if (err != null) reject(err)
