@@ -101,7 +101,6 @@ Page({
         if (datas[i].graph_blob != null) {
           var graphic = datas[i].graph_blob.data
           datas[i].graphUrl = this.madeIndexGraphUrl(graphic)
-          console.log(datas[i].graphUrl)
         }
       } catch (e) {
         console.log(e)
@@ -145,7 +144,6 @@ Page({
     return list;
   },
   bindRegionEvent:function(e){
-    console.log(e.detail)//value code 注意此处用微信自带code 是否和config中的对应
     var regionData = e.detail
     var regionCode = regionData.code
     this.setData({
@@ -188,7 +186,16 @@ Page({
         msg: ''
       })
     }
-   
+    for (var i = 0; i < newList.length; i++) {
+      try {
+        if (newList[i].graph_blob != null) {
+          var graphic = newList[i].graph_blob.data
+          newList[i].graphUrl = this.madeIndexGraphUrl(graphic)
+        }
+      } catch (e) {
+        console.log(e)
+      }
+    }
     this.setData({
       merchList: this.addOnArray(this.data.merchList, newList)
     })
