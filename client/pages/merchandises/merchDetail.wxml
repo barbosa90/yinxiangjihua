@@ -1,11 +1,11 @@
 <import src="temp.wxml"/>
 
 <view>
-  <template is="merchInfo" data="{{merch_Id: merchData.id,merch_Name:merchData.name,merch_Cost:merchData.cost}}"/>
+  <template is="merchInfo" data="{{merch_location: merchData.locationDesc,merch_Id: merchData.id,merch_Name:merchData.name,merch_Cost:merchData.cost}}"/>
 </view>
 
 <view class='merchBody'>
-介绍
+{{merchData.description}}
 </view>
 
 <view class="footer" style=''>
