@@ -29,7 +29,8 @@ var query = (params) => {
         locationstring += ' AND Merchandise.endLocation = ?'
       }
     }
-    var queryString3 = 'SELECT a.*,Graphs.graph_blob FROM (SELECT distinct Merchandise.*, Merch_content.merchid,Merch_content.graphid FROM Merchandise ,Merch_content where Merchandise.id = Merch_content.merchid ' + locationstring + ') a LEFT JOIN Graphs ON Graphs.id = a.graphid ORDER BY a.showTime LIMIT ?,?;'
+    var queryString3 = 'SELECT a.*,Graphs.graph_blob FROM (SELECT distinct Merchandise.*, Merch_content.merchid,Merch_content.graphid FROM Merchandise ,Merch_content WHERE Merchandise.id = Merch_content.merchid ' + locationstring + ') a LEFT JOIN Graphs ON Graphs.id = a.graphid ORDER BY a.showTime LIMIT ?,?;'
+    console.log(queryString3)
     //queryString = 'SELECT a.* FROM (' + queryString + ') a'
     var quantity = parseInt(params.quantity)
     var page = params.page
