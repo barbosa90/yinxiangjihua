@@ -34,15 +34,16 @@ var query = (params) => {
     //queryString = 'SELECT a.* FROM (' + queryString + ') a'
     var quantity = parseInt(params.quantity)
     var page = params.page
-    var start = (params.page - 1) >= 0 ? (params.page - 1) : 0
+    var start = (page - 1) >= 0 ? (page - 1) : 0
     start = start * quantity
     console.log(params.l)
     console.log(params.sl)
     console.log(params.el)
-    console.log(params.start)
+    console.log(start)
     console.log(params.quantity)
-    console.log(paramsUsed)
+    
     var paramsUsed = [params.l, params.sl, params.el, start, quantity]
+    console.log(paramsUsed)
     connection.query(queryString3, paramsUsed, function (err, rows, fields) {
 
       if (err != null) reject(err)
