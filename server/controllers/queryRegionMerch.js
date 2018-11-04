@@ -36,7 +36,7 @@ var query = (params) => {
     var page = params.page
     var start = (page - 1) >= 0 ? (page - 1) : 0
     start = start * quantity
-    var paramsUsed = [params.l, params.sl, params.el, start + '', quantity + '']
+    var paramsUsed = [params.l, params.sl, params.el, start, quantity]
 
     connection.query(queryString3, paramsUsed, function (err, rows, fields) {
 
