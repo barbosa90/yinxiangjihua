@@ -4,12 +4,12 @@ module.exports = async (ctx, next) => {
   ctx.response.set('Content-Type', 'application/json')
   var querystring = require('querystring')
   var params = querystring.parse(ctx.request.querystring)
-  var chunk = await getMerchDetail(params)
+  var chunk = await query(params)
   ctx.body = chunk
 }
 
 
-var getMerchDetail = (params) => {
+var query = (params) => {
   return new Promise((resolve, reject) => {
     const config = require('../config')
     var conf = {}
@@ -19,22 +19,19 @@ var getMerchDetail = (params) => {
     connection.connect(function (err) {
       if (err != null) console.log(err)
     })
-    var queryString = 'SELECT * FROM Merchandise WHERE location = ?'
-    var subCondition = ''
-    
-    if (params != null){
-      if (params.sl != null ){
-        subCondition = ' AND subLocation = ?'
+    var locationstring = ' AND Merchandise.location = ?'
+
+    if (params != null) {
+      if (params.sl != null) {
+        locationstring = ' AND Merchandise.subLocation = ?'
       }
-      if (params.el != null ) {
-        subCondition += ' AND endLocation = ?'
+      if (params.el != null) {
+        locationstring += ' AND Merchandise.endLocation = ?'
       }
     }
+    var queryString3 = 'SELECT a.*,Graphs.graph_blob FROM (SELECT distinct Merchandise.*, Merch_content.merchid,Merch_content.graphid FROM Merchandise ,Merch_content where Merchandise.id = Merch_content.merchid ' + locationstring + ') a LEFT JOIN Graphs ON Graphs.id = a.graphid'
 
-    var queryString2 = 'SELECT a.*,Graphs.graph_blob FROM (SELECT * FROM Merchandise LEFT JOIN Merch_content ON (Merchandise.id = Merch_content.merchid  )) a LEFT JOIN Graphs ON Graphs.id = a.graphid ORDER BY id LIMIT ?,?;'
-    var queryString3 = 'SELECT a.*,Graphs.graph_blob FROM (SELECT * FROM Merchandise LEFT JOIN Merch_content ON (Merchandise.id = Merch_content.merchid  ) WHERE location = ? AND subLocation = ? AND endLocation = ?) a LEFT JOIN Graphs ON Graphs.id = a.graphid ORDER BY id LIMIT ?,?;'
-
-    queryString += subCondition + 'ORDER BY id'
+    queryString3 += ' ORDER BY a.showTime LIMIT ?,?;'
     //queryString = 'SELECT a.* FROM (' + queryString + ') a'
     var quantity = parseInt(params.quantity)
     var page = params.page
