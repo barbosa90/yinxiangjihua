@@ -254,14 +254,14 @@ Page({
   },
   createOrderSuccessful:function(result){
     console.log(result)
-    var pre_order_id = result.data.attachResult.pre_order_id
+    var pre_order_id = result.data[1][0].id
     var totalCost = this.data.totalCost
-    var selfDestroy = result.data[1]
+    var selfDestroy = result.data[1][0].destroyTime
     var amount = this.data.chooseAmount
     var merchid = this.data.merchData.id
     if (selfDestroy){
       wx.navigateTo({
-        url: '../bill/bill?pre_order_id=' + pre_order_id + "&totalCost=" + totalCost + "&selfDestroy=" + selfDestroy[0].destroyTime + "&amount=" + amount + "&merchid=" + merchid
+        url: '../bill/bill?pre_order_id=' + pre_order_id + "&totalCost=" + totalCost + "&selfDestroy=" + selfDestroy + "&amount=" + amount + "&merchid=" + merchid
       })
     }else{
       return

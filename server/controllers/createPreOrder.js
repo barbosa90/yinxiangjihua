@@ -19,10 +19,8 @@ module.exports = async (ctx, next) => {
   let amount = params.amount
   let merchAmountLeft = params.merchAmountLeft
   var insertPreOrder = "INSERT INTO `Pre_order` (`id`, `userid`, `merchid`, `builtTime`, `destroyTime`, `payStatus`, `discount`, `points`, `pointsUsed`, `merchCost`, `finalCost`, `address`, `phone`,`amount`) VALUES (?, ?, ?, CURRENT_TIMESTAMP, date_add(NOW(), interval 10 MINUTE), '0', ?, ?, ?, ?, ?, ?, ?, ?);"
-  var queryPreOrder = "SELECT destroyTime FROM Pre_order WHERE id = ?;"
+  var queryPreOrder = "SELECT id, destroyTime FROM Pre_order WHERE id = ?;"
   params = [uuid, userid, merchid, discount, points, pointsUsed, merchCost, finalCost, address, phone, amount, uuid]
-  console.log("[debug]uuid=")
-  console.log({ pre_order_id: uuid })
-  var chunk = await query(insertPreOrder + queryPreOrder,params,{pre_order_id:uuid})
+  var chunk = await query(insertPreOrder + queryPreOrder,params)
   ctx.body = chunk
 }
