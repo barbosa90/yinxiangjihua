@@ -16,6 +16,8 @@ var query = function (sql, args, attachResult) {
             reject(err)
           } else {
           	if(attachResult) rows.attachResult = attachResult
+            console.log(attachResult)
+            console.log(rows)
             resolve(rows)
           }
           connection.release()
