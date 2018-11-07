@@ -4,7 +4,7 @@ var conf = {}
 conf = config.multiMysql
 var pool = mysql.createPool(conf)
 
-var query = function (sql, args) {
+var query = function (sql, args, attachResult) {
   return new Promise((resolve, reject) => {
     pool.getConnection(function (err, connection) {
       if (err) {
@@ -15,6 +15,7 @@ var query = function (sql, args) {
           if (err) {
             reject(err)
           } else {
+          	if(attachResult) rows.attachResult = attachResult
             resolve(rows)
           }
           connection.release()

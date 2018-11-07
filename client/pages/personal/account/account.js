@@ -240,7 +240,7 @@ Page({
   },
   updateUser: function (params) {
     var header = {}
-    var updatecode = wxRequest.getRequest(this.data.serverUri + '/updateUser', params, header)
+    var updatecode = wxRequest.postRequest(this.data.serverUri + '/updateUser', params, header)
     var updateBaseUser = this.updateBaseUser
     updatecode.then(
       function (e) {
@@ -252,7 +252,7 @@ Page({
             icon:'none'
           })
         } else {
-          if (e.data.data.affectedRows == 1) {
+          if (e.data.affectedRows == 1) {
             updateBaseUser(params)
             wx.showToast({
               title: "修改成功！",

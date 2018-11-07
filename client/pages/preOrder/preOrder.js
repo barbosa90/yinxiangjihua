@@ -253,24 +253,22 @@ Page({
     wxToast.toastSafe_normal('服务器繁忙')
   },
   createOrderSuccessful:function(result){
-    if (result.statusCode == 200 && result.data.msg == 'sqlsucceed'){
-      var pre_order_id = result.data.pre_order_id
-      var totalCost = this.data.totalCost
-      var selfDestroy = result.data.data[1]
-      var amount = this.data.chooseAmount
-      var merchid = this.data.merchData.id
-      if (selfDestroy){
-        wx.navigateTo({
-          url: '../bill/bill?pre_order_id=' + pre_order_id + "&totalCost=" + totalCost + "&selfDestroy=" + selfDestroy[0].destroyTime + "&amount=" + amount + "&merchid=" + merchid
-        })
-      }else{
-        return
-      }
-      
+    var pre_order_id = result.attachResult.pre_order_id
+    var totalCost = this.data.totalCost
+    var selfDestroy = result.data[1]
+    var amount = this.data.chooseAmount
+    var merchid = this.data.merchData.id
+    if (selfDestroy){
+      wx.navigateTo({
+        url: '../bill/bill?pre_order_id=' + pre_order_id + "&totalCost=" + totalCost + "&selfDestroy=" + selfDestroy[0].destroyTime + "&amount=" + amount + "&merchid=" + merchid
+      })
+    }else{
+      return
     }
   },
   creatOrderFail:function(data){
-    console.log(data)
+    console.log(err)
+    wxToast.toastSafe_normal('服务器繁忙')
   },
   recalculate: function (amount, cost, discount, discountType, choosePoints){
     var totally = this.data.chooseAmount * this.data.cost - this.data.choosePoints //1积分1分钱规则

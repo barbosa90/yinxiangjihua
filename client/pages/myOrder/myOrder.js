@@ -129,7 +129,7 @@ Page({
       amount: order.amount
     }
     console.log(updateData)
-    var amountUpdate = wxRequest.getRequest(app.globalData.serverUri + "/refillMerch", updateData, {})
+    var amountUpdate = wxRequest.postRequest(app.globalData.serverUri + "/refillMerch", updateData, {})
     amountUpdate.then(this.amountUpdateSuccessful, this.amountUpdateFail)
     console.log("恢复商品可购买数量：" + order.amount)
   },
