@@ -240,7 +240,7 @@ Page({
   },
   updateUser: function (params) {
     var header = {}
-    var updatecode = wxRequest.postRequest(this.data.serverUri + '/updateUser', params, header)
+    var updatecode = wxRequest.getRequest(this.data.serverUri + '/updateUser', params, header)
     var updateBaseUser = this.updateBaseUser
     updatecode.then(
       function (e) {

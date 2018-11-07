@@ -129,14 +129,12 @@ Page({
       amount: order.amount
     }
     console.log(updateData)
-    var amountUpdate = wxRequest.postRequest(app.globalData.serverUri + "/refillMerch", updateData, {})
+    var amountUpdate = wxRequest.getRequest(app.globalData.serverUri + "/refillMerch", updateData, {})
     amountUpdate.then(this.amountUpdateSuccessful, this.amountUpdateFail)
     console.log("恢复商品可购买数量：" + order.amount)
   },
   amountUpdateSuccessful:function(result){
-    if (result.data.msg == "sql成功"){
       this.updateOrderStatus()
-    }
   },
   updateOrderStatus:function(){
     var orderids = this.data.order.id

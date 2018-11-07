@@ -201,7 +201,7 @@ Page({
       avatarUrl : params.avatarUrl
     }
     var header = { 'content-type': 'application/json' }
-    var promise = wxRequest.postRequest(serverUri + "/addUser", userInfoJson, header)
+    var promise = wxRequest.getRequest(serverUri + "/addUser", userInfoJson, header)
   },
   queryOneUser:function(){
      if (app.globalData.openid) {
