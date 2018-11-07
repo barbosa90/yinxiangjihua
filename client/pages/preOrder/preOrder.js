@@ -254,7 +254,7 @@ Page({
   },
   createOrderSuccessful:function(result){
     console.log(result)
-    var pre_order_id = result.attachResult.pre_order_id
+    var pre_order_id = result.data.attachResult.pre_order_id
     var totalCost = this.data.totalCost
     var selfDestroy = result.data[1]
     var amount = this.data.chooseAmount
