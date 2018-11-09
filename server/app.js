@@ -2,7 +2,7 @@ const Koa = require('koa')
 
 const app = new Koa()
 
-const debug = require('debug')('wechatTicket')
+const debug = require('debug')('yxjh')
 
 const response = require('./middlewares/response')
 

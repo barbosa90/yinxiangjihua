@@ -8,7 +8,7 @@ Page({
   data: {
     user_latitude:0,
     user_longitude:0,
-    markers:{}
+    covers:{}
   },
 
   /**
@@ -76,7 +76,7 @@ Page({
     this.setData({
       user_latitude: res.latitude,
       user_longitude: res.longitude,
-      markers: { 
+      covers: { 
         id: "map_user_" + app.globalData.baseUser.id,
         latitude: res.latitude,
         longitude: res.longitude,
