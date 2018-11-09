@@ -76,13 +76,13 @@ Page({
     this.setData({
       user_latitude: res.latitude,
       user_longitude: res.longitude,
-      covers: { 
+      covers:[{ 
         id: "map_user_" + app.globalData.baseUser.id,
         latitude: res.latitude,
         longitude: res.longitude,
         title: app.globalData.baseUser.nickname,
-        iconPath: './marker_dot.png'
-      }
+        iconPath: './image/logo.png'
+      }]
     })
   }
 })

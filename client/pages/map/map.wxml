@@ -1,5 +1,5 @@
 <!--pages/map/map.wxml-->
 <view class="fullscreen">
-<map longitude="{{user_longitude}}" latitude="{{user_latitude}}" covers="{{covers}}" class=""></map>
+<map longitude="{{user_longitude}}" latitude="{{user_latitude}}" covers="{{covers}}" class="" scale="18"></map>
 
 </view>

@@ -3,7 +3,7 @@ map{
   height:100%;
   width:100%
 }
-.fullscreen{
+page, .fullscreen{
   
-  height: 400vh;
+  height: 100%;
 }
