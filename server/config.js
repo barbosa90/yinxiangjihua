@@ -29,7 +29,7 @@ const CONF = {
     multiMysql: {
      // host: 'localhost',
      // port: 3306,
-      host: 'd.yinxiangjihua.cn',
+      host: 'cd-cdb-0ttnb170.sql.tencentcdb.com',
       port: 63583,
       user: 'root',
       database: 'YINXIANG',
