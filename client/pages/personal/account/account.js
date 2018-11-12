@@ -2,20 +2,24 @@
 const app = getApp()
 import request from '../../../utils/wxRequest.js'
 const wxRequest = new request
+const appconfig = require('../../../config.js')
+const serverHost = appconfig.service.serverUri
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    serverUri: 'https://hvb9jjr1.qcloud.la/weapp',
+    serverUri: serverHost,
     openid: '',
     globalUserInfo: null,
     hasUserInBase: false,
     session_key: '',
     baseUser: {},
     submitType: "update",
-    submitLabel: "修改"
+    submitLabel: "修改",
+    genderPickerArea:['男','女'],
+    genderPickerAreaIndex: 1
   },
 
   /**
@@ -23,6 +27,7 @@ Page({
    */
   onLoad: function (options) {
     this.setData({
+      serverUri: serverHost,
       openid: app.globalData.openid,
       session_key: app.globalData.session_key,
       globalUserInfo: app.globalData.userInfo,
@@ -31,6 +36,7 @@ Page({
         province: app.globalData.userInfo.province
       }
     })
+
     var serverUri = this.data.serverUri
     var useropenidJson = { openid: this.data.openid }
     var header = { 'content-type': 'application/json' }
@@ -42,6 +48,16 @@ Page({
         this.setData({
           baseUser: app.globalData.baseUser,
           hasUserInBase: true
+        })
+        var bu = this.data.baseUser
+        var genderPickerAreaIndex = -1
+        if (bu.gender == 'male') {
+          genderPickerAreaIndex = 0
+        } else {
+          genderPickerAreaIndex = 1
+        }
+        this.setData({
+          genderPickerAreaIndex: genderPickerAreaIndex
         })
       }
     }
@@ -143,9 +159,17 @@ Page({
     } else {
       console.log('找到了用户')
       app.globalData.hasUserInBase = true
+      var bu = data.data[0]
+      var genderPickerAreaIndex = -1
+      if(bu.gender == 'male'){
+        genderPickerAreaIndex = 0
+      }else{
+        genderPickerAreaIndex = 1
+      }
       this.setData({
         hasUserInBase: true,
-        baseUser: data.data[0]
+        baseUser: bu,
+        genderPickerAreaIndex: genderPickerAreaIndex
       })
     }
   },
@@ -207,23 +231,23 @@ Page({
 
   updateSubmit: function (e) {
     var formValue = e.detail.value
-    if (formValue.reg_name.trim() == '' || formValue.reg_phone.trim() == '') {
+    if (formValue.age.trim() == '' || formValue.age.trim() == '' || formValue.reg_name.trim() == '' || formValue.reg_phone.trim() == '') {
       wx.showToast({
         mask: true,
-        title: "姓名和电话不能修改为空！",
+        title: "请填写姓名、年龄、性别和电话！",
         icon: 'none',
         duration: 800
       })
       return;
     }
-    // var intGender = this.data.globalUserInfo.gender
-    // var varcharGender = 'other'
-    // if (intGender == 1) {
-    //   varcharGender = 'male'
-    // }
-    // else if (intGender == 2) {
-    //   varcharGender = 'female'
-    // }
+    var genderPickerAreaIndex = this.data.genderPickerAreaIndex
+    var varcharGender = 'female'
+    if (genderPickerAreaIndex == 0) {
+      varcharGender = 'male'
+    }
+    else if (genderPickerAreaIndex == 1) {
+      varcharGender = 'female'
+    }
     var params = {
       reg_name: formValue.reg_name.trim(),
       reg_phone: formValue.reg_phone.trim(),
@@ -231,12 +255,16 @@ Page({
       province: formValue.province.trim(),
       id: this.data.baseUser.id,
       nickname: this.data.globalUserInfo.nickName,
-      avatarUrl: this.data.globalUserInfo.avatarUrl
-      // openId: this.data.openid,
-      // gender: varcharGender,
-      // language: this.data.globalUserInfo.language
+      avatarUrl: this.data.globalUserInfo.avatarUrl,
+      gender: varcharGender,
+      age: formValue.age.trim()
     }
     this.updateUser(params)
+  },
+  genderChange: function (e){
+    this.setData({
+      genderPickerAreaIndex: e.detail.value
+    })
   },
   updateUser: function (params) {
     var header = {}

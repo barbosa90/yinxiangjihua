@@ -10,8 +10,10 @@ module.exports = async (ctx, next) => {
   let city = params.city
   let province = params.province
   let id = params.id
-  params = [reg_name, reg_phone, city, province, id]
+  let gender = params.gender
+  let age = params.age
+  params = [reg_name, reg_phone, city, province, gender, age, id]
     
-  var chunk = await query('UPDATE `User` SET `reg_name` = ?, `reg_phone` = ?, `city` = ?, `province` = ? WHERE `User`.`id` = ?;',params)
+  var chunk = await query('UPDATE `User` SET `reg_name` = ?, `reg_phone` = ?, `city` = ?, `province` = ? `gender` = ? `age` = ? WHERE `User`.`id` = ?;',params)
   ctx.body = chunk
 }

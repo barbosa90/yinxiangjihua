@@ -2,13 +2,15 @@
 const app = getApp()
 import request from '../../utils/wxRequest.js'
 const wxRequest = new request
+const appconfig = require('../../config.js')
+const serverHost = appconfig.service.serverUri
 Page({
  
   /**
    * 页面的初始数据
    */
   data: {
-    serverUri: 'https://hvb9jjr1.qcloud.la/weapp',
+    serverUri: serverHost,
     openid:'',
     globalUserInfo:null,
     hasUserInBase: false,

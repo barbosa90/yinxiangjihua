@@ -11,6 +11,16 @@
   <view class="input">
     <input type="text" name="reg_name" value="{{baseUser.reg_name}}"></input>
   </view>
+  <view class="label"><text class="label">年龄</text></view>
+  <view class="input">
+    <input type="age" name="age" value="{{baseUser.age}}"></input>
+  </view>
+  <view class="label"><text class="label">性别</text></view>
+  <picker name="genderPicker" value="{{baseUser.gender}}" bindchange="genderChange" value="{{genderPickerAreaIndex}}" range="{{genderPickerArea}}">
+    <view class="picker">
+      当前选择：{{genderPickerArea[genderPickerAreaIndex]}}
+    </view>
+  </picker>
   <view class="label"><text class="label">电话</text></view>
   <view class="input">
     <input type="phone" name="reg_phone" value="{{baseUser.reg_phone}}"></input>
