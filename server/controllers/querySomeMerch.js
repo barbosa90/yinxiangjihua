@@ -11,6 +11,6 @@ module.exports = async (ctx, next) => {
   start = start * quantity
   params = [ start , quantity ]
     
-  var chunk = await query('SELECT a.*,Graphs.graph_blob FROM (SELECT distinct Merchandise.*, Merch_content.merchid,Merch_content.list FROM Merchandise ,Merch_content WHERE Merch_content.list is not null AND Merchandise.id = Merch_content.merchid) a LEFT JOIN Graphs ON Graphs.id = a.list ORDER BY showTime LIMIT ?,?;',params)
+  var chunk = await query('SELECT a.*,GRAPHS.GRAPH_BLOB FROM (SELECT distinct MERCHANDISE.*, MERCH_CONTENT.MERCHID,MERCH_CONTENT.LIST FROM MERCHANDISE ,MERCH_CONTENT WHERE MERCH_CONTENT.LIST is not null AND MERCHANDISE.ID = MERCH_CONTENT.MERCHID) a LEFT JOIN GRAPHS ON GRAPHS.ID = a.list ORDER BY SHOWTIME LIMIT ?,?;',params)
   ctx.body = chunk
 }

@@ -22,7 +22,7 @@ var query = (params) => {
       if (err != null) console.log(err)
     })
 
-    var selectString = 'SELECT Graphs.graph_blob,Merch_content.merchid FROM Graphs,Merch_content WHERE Merch_content.graphid = Graphs.id AND Merch_content.used_in = "swiper"';
+    var selectString = 'SELECT GRAPHS.GRAPH_BLOB,MERCH_CONTENT.MERCHID FROM GRAPHS,MERCH_CONTENT WHERE MERCH_CONTENT.GRAPHID = GRAPHS.ID AND MERCH_CONTENT.USED_IN = "swiper"';
     var paramsArr = []
     connection.query(selectString, paramsArr, function (err, rows, fields) {
 

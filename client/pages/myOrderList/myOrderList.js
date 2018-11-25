@@ -19,8 +19,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.queryOnesPreOrders(app.globalData.baseUser.id)
-    this.queryOnesPaidOrders(app.globalData.baseUser.id)
+    //this.queryOnesPreOrders(app.globalData.baseUser.ID)
+    //this.queryOnesPaidOrders(app.globalData.baseUser.ID)
   },
 
   /**
@@ -34,7 +34,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    this.queryOnesPreOrders(app.globalData.baseUser.id)
+    this.queryOnesPreOrders(app.globalData.baseUser.ID)
+    this.queryOnesPaidOrders(app.globalData.baseUser.ID)
   },
 
   /**
@@ -81,7 +82,6 @@ Page({
   queryOnesPaidOrdersSuccessful: function (result) {
     console.log(result)
     var orderArray = result.data
-    var refillMap = new Map()
     for (var i = 0; i < orderArray.length; i++) {
       var order = orderArray[i]
       var paidTime = order.PAIDTIME
@@ -90,6 +90,9 @@ Page({
       order.showPaidTime = showPaidTime
 
       var deadline = order.DEADLINE
+      if(deadline == null){
+        order.showDeadLine = "无过期时间"
+      }
       var deadlineDT = new Date(deadline)
       var showDeadLine = deadlineDT.toLocaleString()
       order.showDeadLine = showDeadLine
@@ -112,9 +115,8 @@ Page({
         // }
       // }
     }
-    console.log(refillMap)
 
-    // this.changePreOrderStatus(orderArray)
+    //this.changePaidOrderStatus(orderArray)
     // this.refillAll(refillMap)//上方
     this.setData({
       paidOrderList: result.data
@@ -133,13 +135,13 @@ Page({
     var refillMap = new Map()
     for(var i = 0; i < orderArray.length; i++){
       var order = orderArray[i]
-      var destroyTime = order.destroyTime
+      var destroyTime = order.DESTROYTIME
       var destroyDT = new Date(destroyTime)
       var showDestroyTime = destroyDT.toLocaleString()
       order.showDestroyTime = showDestroyTime
-      if (order.payStatus == 0){
-        this.orderCheck(order,order.destroyTime)
-        var merchid = order.merchid
+      if (order.PAYSTATUS == 0){
+        this.orderCheck(order, order.DESTROYTIME)
+        var merchid = order.MERCHID
         var currMerchRefillAmount = 0
         if (refillMap.get(merchid) == null) {
           currMerchRefillAmount = 0
@@ -147,8 +149,7 @@ Page({
         } else {
           currMerchRefillAmount = refillMap.get(merchid)
         }
-        console.log(order.payStatus)
-        if (!order.avaliable && order.payStatus == 0) {//0代表未支付状态，1代表支付完成，2代表未支付且已经恢复数量了（结束了，取消了）
+        if (!order.avaliable && order.PAYSTATUS == 0) {//0代表未支付状态，1代表支付完成，2代表未支付且已经恢复数量了（结束了，取消了）
           currMerchRefillAmount++;
           refillMap.set(merchid, currMerchRefillAmount);
         }
@@ -196,7 +197,7 @@ Page({
       if(orderids.length > 0){
         orderids += ','
       }
-      orderids += order.id
+      orderids += order.ID
     }
     var data = {
       orderids: orderids,
@@ -212,18 +213,31 @@ Page({
   updateStatusFail:function(err){
     console.log(err)
   },
-  queryOnePreOrder: function (tapData){
+  queryOneOrder: function (tapData){
     var orderid = tapData.currentTarget.dataset.orderid
+    var t = tapData.currentTarget.dataset.type
     var data = {
       id: orderid
     }
-    var query = wxRequest.getRequest(app.globalData.serverUri + "/queryOnePreOrder", data, {})
-    query.then(this.queryOnePreOrderSuccessful, this.queryOnePreOrderFail)
+    if(t == "pre"){
+      var query = wxRequest.getRequest(app.globalData.serverUri + "/queryOnePreOrder", data, {})
+      query.then(this.queryOnePreOrderSuccessful, this.queryOnePreOrderFail)
+    }else{
+      var query = wxRequest.getRequest(app.globalData.serverUri + "/queryOnePaidOrder", data, {})
+      query.then(this.queryOnePaidOrderSuccessful, this.queryOneOrderFail)
+    }
+    
   },
   queryOnePreOrderSuccessful:function(result){
     var orderData = result.data[0]
     wx.navigateTo({
-      url: '../myOrder/myOrder?orderData=' + JSON.stringify(orderData)
+      url: '../myOrder/myOrder?t=pre&orderData=' + JSON.stringify(orderData)
+    })
+  },
+  queryOnePaidOrderSuccessful: function (result){
+    var orderData = result.data[0]
+    wx.navigateTo({
+      url: '../myOrder/myOrder?t=paid&orderData=' + JSON.stringify(orderData)
     })
   },
   orderCheck: function (order,time){

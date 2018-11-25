@@ -6,6 +6,6 @@ module.exports = async (ctx, next) => {
   var query = require('../api/mysqlPool.js')
   var params = querystring.parse(ctx.request.querystring)
   params = []
-  var chunk = await query('SELECT * FROM Merchandise',params)
+  var chunk = await query('SELECT * FROM MERCHANDISE',params)
   ctx.body = chunk
 }

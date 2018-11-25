@@ -21,7 +21,7 @@ module.exports = async (ctx, next) => {
   }
   inStr += ')'
 
-  var queryString = 'UPDATE `Pre_order` SET `payStatus` = ? WHERE `payStatus` != 1 AND `id` in '+ inStr
+  var queryString = 'UPDATE `PRE_ORDER` SET `PAYSTATUS` = ? WHERE `PAYSTATUS` != 1 AND `ID` in '+ inStr
   var chunk = await query(queryString,params)
   ctx.body = chunk
 }

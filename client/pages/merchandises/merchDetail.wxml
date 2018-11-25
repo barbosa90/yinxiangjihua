@@ -1,11 +1,11 @@
 <import src="temp.wxml"/>
 
 <view>
-  <template is="merchInfo" data="{{merch_location: merchData.locationDesc,merch_Id: merchData.id,merch_Name:merchData.name,merch_Cost:merchData.cost}}"/>
+  <template is="merchInfo" data="{{merch_location: merchData.LOCATIONDESC,merch_Id: merchData.ID,merch_Name:merchData.NAME,merch_Cost:merchData.COST}}"/>
 </view>
 
 <view class='merchBody'>
-{{merchData.description}}
+{{merchData.DESCRIPTION}}
 </view>
 
 <view class="footer" style=''>

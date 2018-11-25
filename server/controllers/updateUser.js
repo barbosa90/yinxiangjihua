@@ -14,6 +14,6 @@ module.exports = async (ctx, next) => {
   let age = params.age
   params = [reg_name, reg_phone, city, province, gender, age, id]
     
-  var chunk = await query('UPDATE `User` SET `reg_name` = ?, `reg_phone` = ?, `city` = ?, `province` = ? `gender` = ? `age` = ? WHERE `User`.`id` = ?;',params)
+  var chunk = await query('UPDATE `USER` SET `REG_NAME` = ?, `REG_PHONE` = ?, `CITY` = ?, `PROVINCE` = ? `GENDER` = ? `AGE` = ? WHERE `USER`.`ID` = ?;',params)
   ctx.body = chunk
 }

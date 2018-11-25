@@ -32,8 +32,8 @@ Page({
       session_key: app.globalData.session_key,
       globalUserInfo: app.globalData.userInfo,
       baseUser: {
-        city: app.globalData.userInfo.city,
-        province: app.globalData.userInfo.province
+        CITY: app.globalData.userInfo.city,
+        PROVINCE: app.globalData.userInfo.province
       }
     })
 
@@ -51,7 +51,7 @@ Page({
         })
         var bu = this.data.baseUser
         var genderPickerAreaIndex = -1
-        if (bu.gender == 'male') {
+        if (bu.GENDER == 'male') {
           genderPickerAreaIndex = 0
         } else {
           genderPickerAreaIndex = 1
@@ -129,14 +129,14 @@ Page({
         } else {
           console.log(e)
           console.log(e.data)
-          if (e.data.code == 200) {
+          //if (e.data.code == 200) {
             hasUserInBase_ = true
             setHasUserInBase(hasUserInBase_)
             wx.showToast({
               title: "保存成功！",
               duration: 800
             })
-          }
+          //}
           console.log('添加成功')
         }
       },
@@ -161,7 +161,7 @@ Page({
       app.globalData.hasUserInBase = true
       var bu = data.data[0]
       var genderPickerAreaIndex = -1
-      if(bu.gender == 'male'){
+      if(bu.GENDER == 'male'){
         genderPickerAreaIndex = 0
       }else{
         genderPickerAreaIndex = 1
@@ -185,7 +185,7 @@ Page({
       })
       return;
     }
-    var intGender = this.data.globalUserInfo.gender
+    var intGender = formValue.gender
     var varcharGender = 'other'
     if (intGender == 1) {
       varcharGender = 'male'
@@ -203,7 +203,8 @@ Page({
       city: formValue.city.trim(),
       province: formValue.province.trim(),
       language: this.data.globalUserInfo.language,
-      def_addr: formValue.def_addr
+      def_addr: formValue.def_addr,
+      age: formValue.age.trim()
     }
     this.addUser(params)
   },
@@ -253,7 +254,7 @@ Page({
       reg_phone: formValue.reg_phone.trim(),
       city: formValue.city.trim(),
       province: formValue.province.trim(),
-      id: this.data.baseUser.id,
+      id: this.data.baseUser.ID,
       nickname: this.data.globalUserInfo.nickName,
       avatarUrl: this.data.globalUserInfo.avatarUrl,
       gender: varcharGender,
@@ -300,16 +301,18 @@ Page({
   updateBaseUser: function (params) {
     this.setData({
       baseUser: {
-        reg_name: params.reg_name,
-        reg_phone: params.reg_phone,
-        city: params.city,
-        province: params.province
+        REG_NAME: params.reg_name,
+        REG_PHONE: params.reg_phone,
+        CITY: params.city,
+        GENDER:params.gender,
+        AGE:params.age,
+        PROVINCE: params.province
       }
     })
     app.globalData.baseUser = this.data.baseUser
   },
   address:function(){
-    getAddress(this.data.baseUser.id, this.data.serverUri).then(function(data){
+    getAddress(this.data.baseUser.ID, this.data.serverUri).then(function(data){
       if (data.statusCode == 200){
         var addressesData = data.data[0]
         wx.navigateTo({

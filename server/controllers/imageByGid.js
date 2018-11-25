@@ -7,6 +7,6 @@ module.exports = async (ctx, next) => {
   var params = querystring.parse(ctx.request.querystring)
   var id = params.gid
   params = [id]
-  var chunk = await query('SELECT graph_blob FROM Graphs WHERE id = ?;',params)
+  var chunk = await query('SELECT GRAPH_BLOB FROM GRAPHS WHERE ID = ?;',params)
   ctx.body = chunk
 }

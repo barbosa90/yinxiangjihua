@@ -1,19 +1,42 @@
 <!--pages/myOrder/myOrder.wxml-->
 <text>pages/myOrder/myOrder.wxml</text>
-<view bindtap='queryOnePreOrder' data-orderid="{{order.id}}">
+<view bindtap=''>
+<!-- wx:if="{{t}}=='pre'" -->
     --------------
-      <view>{{order.id}}</view>
-    
-      <view class="" hover-class='merchHover' data-merchid='' bindtap='toMerchDetail'>
-        <view class="" style=''>
-          状态：{{order.payStatus}}
-          失效时间：{{order.showDestroyTime}}
-        </view>
-      </view> 
-    </view> 
-<view class="" bindtap='payOrder' wx:if="{{order.avaliable}}" style='color:blue'>
-去支付
+  <view>{{order.id}}</view>
+
+  <view class="" hover-class='merchHover' data-merchid='' bindtap='toMerchDetail'>
+    <view class="" style=''>
+      <view wx:if="{{t=='pre'}}">
+      状态：{{order.PAYSTATUS}}
+      </view>
+      <view wx:if="{{t=='pre'}}">
+      失效时间：{{order.showDestroyTime}}
+      </view>
+      <view wx:if="{{t=='paid'}}">
+       状态：{{order.STATUS}}
+      </view>
+      <view wx:if="{{t=='paid'}}">
+      过期时间：{{order.deadline}}
+      </view>
+    </view>
+  </view> 
+</view> 
+<view wx:if="{{t=='pre'}}">
+  <view class="" bindtap='payOrder' wx:if="{{order.avaliable}}" style='color:blue'>
+  去支付
+  </view>
+  <view class="" bindtap='cancelOrder' wx:if="{{order.avaliable}}" style='color:blue'>
+  取消
+  </view>
 </view>
-<view class="" bindtap='cancelOrder' wx:if="{{order.avaliable}}" style='color:blue'>
-取消
+<view wx:if="{{t=='paid'}}">
+  <view class="" bindtap='use' wx:if="{{order.avaliable}}" style='color:blue'>
+  去使用
+  </view>
+  <view class="" bindtap='refundOrder' wx:if="{{order.avaliable}}" style='color:blue'>
+  申请退款
+  </view>
 </view>
+
+

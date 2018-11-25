@@ -10,17 +10,17 @@ module.exports = async (ctx, next) => {
   var start = (page - 1) >= 0 ? (page - 1) : 0
   start = start * quantity
   var paramsUsed = [params.l, params.sl, params.el, start, quantity]
-	var locationstring = ' AND Merchandise.location = ?'
+	var locationstring = ' AND MERCHANDISE.LOCATION = ?'
 
   if (params != null) {
     if (params.sl != null) {
-      locationstring += ' AND Merchandise.subLocation = ?'
+      locationstring += ' AND MERCHANDISE.SUBLOCATION = ?'
     }
     if (params.el != null) {
-      locationstring += ' AND Merchandise.endLocation = ?'
+      locationstring += ' AND MERCHANDISE.ENDLOCATION = ?'
     }
   }
-  var queryString = 'SELECT a.*,Graphs.graph_blob FROM (SELECT distinct Merchandise.*, Merch_content.merchid,Merch_content.list FROM Merchandise ,Merch_content WHERE Merch_content.list is not null AND Merchandise.id = Merch_content.merchid ' + locationstring + ') a LEFT JOIN Graphs ON Graphs.id = a.list ORDER BY a.showTime LIMIT ?,?;'
+  var queryString = 'SELECT a.*,GRAPHS.GRAPH_BLOB FROM (SELECT distinct MERCHANDISE.*, MERCH_CONTENT.MERCHID,MERCH_CONTENT.list FROM MERCHANDISE ,MERCH_CONTENT WHERE MERCH_CONTENT.LIST is not null AND MERCHANDISE.ID = MERCH_CONTENT.MERCHID ' + locationstring + ') a LEFT JOIN GRAPHS ON GRAPHS.ID = a.list ORDER BY a.SHOWTIME LIMIT ?,?;'
     
   var chunk = await query(queryString,paramsUsed)
   ctx.body = chunk

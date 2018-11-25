@@ -8,7 +8,7 @@ import toast from '../../utils/toast.js'
 const wxToast = new toast
 Page({
   data: {
-    serverUri: 'https://www.yinxiangjihua.cn/weapp', //'https://hvb9jjr1.qcloud.la/weapp',
+    serverUri: 'https://hvb9jjr1.qcloud.la/weapp',//'https://www.yinxiangjihua.cn/weapp', //'https://hvb9jjr1.qcloud.la/weapp',
     motto: 'aliIconfont icon-user',//'完善信息',//
     userInfo: {},
     hasUserInfo: false,
@@ -119,7 +119,7 @@ Page({
     })
   },
   myOrder:function(){
-    if (app.globalData.userInfo){
+    if (app.globalData.hasUserInBase){
       wx.navigateTo({
         url: '../myOrderList/myOrderList'
       })
@@ -147,7 +147,7 @@ Page({
   toMerchDetailCallbackSuccessful:function(value){
     if (value.statusCode == 200 || value.statusCode == '200') {
       var merchData = value.data[0]
-      var merchid = merchData.id
+      var merchid = merchData.ID
       wx.navigateTo({
         url: '../merchandises/merchDetail?merchData=' + JSON.stringify(merchData)
       })
@@ -179,8 +179,8 @@ Page({
     var datas = value.data
     for(var i = 0; i < datas.length; i++){
       try{
-        if (datas[i].graph_blob != null){
-          var graphic = datas[i].graph_blob.data
+        if (datas[i].GRAPH_BLOB != null){
+          var graphic = datas[i].GRAPH_BLOB.data
           datas[i].graphUrl = this.madeIndexGraphUrl(graphic)
         }
       }catch(e){
@@ -231,12 +231,17 @@ Page({
     console.log(data)
     if (data.data.length == 0 || data.data.code) {
       console.log('没有找到这个用户')
+      app.globalData.hasUserInBase = false
+      this.setData({
+        hasUserInBase:false
+      })
     } else {
       console.log('找到了这个用户')
       app.globalData.hasUserInBase = true
       app.globalData.baseUser = data.data[0]
       this.setData({
-        motto: "aliIconfont icon-user"
+        motto: "aliIconfont icon-user",
+        hasUserInBase: true
       })
     }
     wx.hideLoading({
@@ -316,12 +321,12 @@ Page({
     var urls = []
     var urls_with_id = []
     for (var i = 0; i < graphics.length; i++) {
-      var img64 = wx.arrayBufferToBase64(graphics[i].graph_blob.data)
+      var img64 = wx.arrayBufferToBase64(graphics[i].GRAPH_BLOB.data)
       if (img64 == null || img64.length == 0){
         img64 = appconfig.service.imgErrorPic_64
       }
       urls_with_id[urls_with_id.length] = { 
-        merchid: graphics[i].merchid,
+        merchid: graphics[i].MERCHID,
         data64: 'data:image/png;base64,' + img64 //卡顿
       }
       

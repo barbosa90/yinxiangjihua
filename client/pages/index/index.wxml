@@ -20,15 +20,15 @@
     主页商品罗列 商品
     <view wx:for="{{merchList}}" wx:for-item="merch" wx:for-index="index" wx:key="id">
     border
-     <view class="framelook" hover-class='merchHover' data-merchid='{{merch.id}}' bindtap='toMerchDetail'>
+     <view class="framelook" hover-class='merchHover' data-merchid='{{merch.ID}}' bindtap='toMerchDetail'>
         <view class="merchImg" style='margin:auto;height:130px;width:96%;background-color:green'>
             <image src="{{merch.graphUrl}}" class="index-merch-image" />
           <view class="merchName" >
-          {{merch.name}}
+          {{merch.NAME}}
           </view>
         </view>
         <view class="merchTitle" style='margin-left:2%;margin-top:2px;height:45px;width:96%;background-color:red'>
-        {{merch.describeTitle}}
+        {{merch.DESCRIBETITLE}}
         </view>
       </view>
     </view>

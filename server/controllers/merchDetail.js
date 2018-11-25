@@ -8,6 +8,6 @@ module.exports = async (ctx, next) => {
   let id = params.id
   params = [id]
     
-  var chunk = await query("SELECT * FROM Merchandise WHERE id = ?",params)
+  var chunk = await query("SELECT * FROM MERCHANDISE WHERE ID = ?",params)
   ctx.body = chunk
 }

@@ -98,8 +98,8 @@ Page({
     }
     for (var i = 0; i < datas.length; i++) {
       try {
-        if (datas[i].graph_blob != null) {
-          var graphic = datas[i].graph_blob.data
+        if (datas[i].GRAPH_BLOB != null) {
+          var graphic = datas[i].GRAPH_BLOB.data
           datas[i].graphUrl = this.madeIndexGraphUrl(graphic)
         }
       } catch (e) {
@@ -188,8 +188,8 @@ Page({
     }
     for (var i = 0; i < newList.length; i++) {
       try {
-        if (newList[i].graph_blob != null) {
-          var graphic = newList[i].graph_blob.data
+        if (newList[i].GRAPH_BLOB != null) {
+          var graphic = newList[i].GRAPH_BLOB.data
           newList[i].graphUrl = this.madeIndexGraphUrl(graphic)
         }
       } catch (e) {

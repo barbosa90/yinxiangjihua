@@ -29,12 +29,12 @@ Page({
     var merchData = JSON.parse(options.merchData)
     this.setData({
       merchData: merchData,
-      maxAmount: Number(merchData.amount),
+      maxAmount: Number(merchData.AMOUNT),
       user:app.globalData.baseUser,
-      totalCost: merchData.cost * 1 ,
-      cost: merchData.cost
+      totalCost: merchData.COST * 1 ,
+      cost: merchData.COST
     })
-    this.getAddress(app.globalData.baseUser.id)
+    this.getAddress(app.globalData.baseUser.ID)
   },
 
   /**
@@ -53,10 +53,10 @@ Page({
 
   },
   checkStatus: function (checkMerchAmount) {//session?
-    if (app.globalData.baseUser.openId == app.globalData.openid) {
+    if (app.globalData.baseUser.OPENID == app.globalData.openid) {
       checkMerchAmount()
     } else {
-      wxToast.toastSafe_normal('服务器忙，获取个人信息失败')
+      wxToast.toastSafe_normal('服务器忙，获取商品信息失败')
     }
   },
   queryAmountFail: function (reject) {
@@ -64,17 +64,17 @@ Page({
   },
   queryOneMerchAmount: function () {
     var queryData = {
-      id: this.data.merchData.id
+      id: this.data.merchData.ID
     }
     var amountQuery = wxRequest.getRequest(app.globalData.serverUri + "/queryOneMerchAmount", queryData, this.data.header)
     amountQuery.then(this.queryAmountSuccessful, this.queryAmountFail)
   },
   queryAmountSuccessful: function (resolve) {
     var amountData = resolve.data[0]
-    var amount = amountData.amount
+    var amount = amountData.AMOUNT
     if (amount > 0) {
       var md = this.data.merchData //刷新数量 
-      md.amount = amount
+      md.AMOUNT = amount
       this.data.maxAmount = amount
       this.setData({
         merchData: md,
@@ -215,12 +215,12 @@ Page({
     }
     var merchAmountLeft = this.data.maxAmount - this.data.chooseAmount
     var order = {
-      userid: app.globalData.baseUser.id,
-      merchid: this.data.merchData.id,
+      userid: app.globalData.baseUser.ID,
+      merchid: this.data.merchData.ID,
       discount: 0,
-      points: app.globalData.baseUser.points - this.data.choosePoints,//剩余
+      points: this.data.merchData.POINTS,//剩余
       pointsUsed: this.data.choosePoints,
-      merchCost: this.data.merchData.cost,
+      merchCost: this.data.merchData.COST,
       finalCost: this.data.totalCost,
       address: address,
       phone: phone,
@@ -231,7 +231,7 @@ Page({
       orderParams: order
     })
     var pickData = {
-      merchid: this.data.merchData.id,
+      merchid: this.data.merchData.ID,
       amount: this.data.chooseAmount
     }
     this.pickOutMerch(pickData)
@@ -243,7 +243,7 @@ Page({
   pickOutMerchSuccessful: function (result){
     console.log(result)
     if (true) {
-      wxRequest.getRequest(app.globalData.serverUri + '/createPreOrder', this.data.orderParams, {}).then(this.createOrderSuccessful, this.creatOrderFail)
+      wxRequest.getRequest(app.globalData.serverUri + '/createPreOrder', this.data.orderParams, this.data.orderParams).then(this.createOrderSuccessful, this.creatOrderFail)
     }else{
       wxToast.toastSafe_normal('服务器繁忙')
     }
@@ -254,11 +254,11 @@ Page({
   },
   createOrderSuccessful:function(result){
     console.log(result)
-    var pre_order_id = result.data[1][0].id
+    var pre_order_id = result.data[1][0].ID
     var totalCost = this.data.totalCost
-    var selfDestroy = result.data[1][0].destroyTime
+    var selfDestroy = result.data[1][0].DESTROYTIME
     var amount = this.data.chooseAmount
-    var merchid = this.data.merchData.id
+    var merchid = this.data.merchData.ID
     if (selfDestroy){
       wx.navigateTo({
         url: '../bill/bill?pre_order_id=' + pre_order_id + "&totalCost=" + totalCost + "&selfDestroy=" + selfDestroy + "&amount=" + amount + "&merchid=" + merchid

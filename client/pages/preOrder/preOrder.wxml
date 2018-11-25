@@ -3,26 +3,26 @@
 <view class=''>
 
 <radio-group name='addr_phone' class="radio-group">
-    <view wx:if="{{addrData.def_address}}">
+    <view wx:if="{{addrData.DEF_ADDRESS}}">
       <label class="radio">
           <radio value="def" checked="true"/>
       </label>
-      <view class='selected address'>{{addrData.def_address}}</view>
-      <view class='selected phone'>联系电话：{{addrData.def_phone}}</view>
+      <view class='selected address'>{{addrData.DEF_ADDRESS}}</view>
+      <view class='selected phone'>联系电话：{{addrData.DEF_PHONE}}</view>
     </view>
-    <view wx:if="{{addrData.address1}}">
+    <view wx:if="{{addrData.ADDRESS1}}">
     <label class="radio">
         <radio value="1"/>
     </label>
-    <view class='address'>{{addrData.address1}}</view>
-    <view class='phone'>联系电话：{{addrData.phone1}}</view>
+    <view class='address'>{{addrData.ADDRESS1}}</view>
+    <view class='phone'>联系电话：{{addrData.PHONE1}}</view>
     </view>
-    <view wx:if="{{addrData.address2}}">
+    <view wx:if="{{addrData.ADDRESS2}}">
       <label class="radio">
           <radio value="2"/>
       </label>
-      <view class='address'>{{addrData.address2}}</view>
-      <view class='phone'>联系电话：{{addrData.phone2}}</view>
+      <view class='address'>{{addrData.ADDRESS2}}</view>
+      <view class='phone'>联系电话：{{addrData.PHONE2}}</view>
     </view>
 </radio-group>
 </view>
@@ -30,9 +30,9 @@
   
 <view>maxAmount:{{maxAmount}}</view>
 <view>购买数量:{{chooseAmount}}</view>
-<view>价格: {{merchData.cost /100.00}} ￥</view>
-<view>品名: {{merchData.name}}</view>
-<view>合计: {{merchData.cost * chooseAmount /100.00}} ￥</view>
+<view>价格: {{merchData.COST /100.00}} ￥</view>
+<view>品名: {{merchData.NAME}}</view>
+<view>合计: {{merchData.COST * chooseAmount /100.00}} ￥</view>
 
 <view class="items">
     <text class="section__title">数量</text>
@@ -44,7 +44,7 @@
       <slider bindchange="setChoose" min="{{minimalAmount}}" max="{{maxAmount}}"  show-value value="{{chooseAmount}}" step="1"/>
 </view>
 <view></view>
-<view>拥有积分 {{user.points}}</view><view>使用积分 {{choosePoints}}</view>
+<view>拥有积分 {{user.POINTS}}</view><view>使用积分 {{choosePoints}}</view>
 <input style='margin-left:5px;width:500px' bindinput='setPoints' type="number" name="points" value="{{choosePoints}}"></input>
 
 <view>合计: {{totalCost / 100.00}} ￥</view>

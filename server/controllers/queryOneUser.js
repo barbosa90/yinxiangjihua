@@ -8,6 +8,6 @@ module.exports = async (ctx, next) => {
   let openid = params.openid
   params = [openid]
     
-  var chunk = await query('SELECT * FROM User WHERE openId = ?',params)
+  var chunk = await query('SELECT * FROM USER WHERE OPENID = ?',params)
   ctx.body = chunk
 }

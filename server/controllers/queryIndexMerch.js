@@ -7,7 +7,7 @@ module.exports = async (ctx, next) => {
   var params = querystring.parse(ctx.request.querystring)
   params = []
     
-  var chunk = await query('SELECT a.*,Graphs.graph_blob FROM (SELECT * FROM Merchandise JOIN Merch_content ON (Merchandise.id = Merch_content.merchid  AND Merch_content.mainPage is not null)) a ,Graphs WHERE Graphs.id = a.mainPage;',params)
+  var chunk = await query('SELECT a.*,GRAPHS.GRAPH_BLOB FROM (SELECT * FROM MERCHANDISE JOIN MERCH_CONTENT ON (MERCHANDISE.ID = MERCH_CONTENT.MERCHID  AND MERCH_CONTENT.MAINPAGE is not null)) a ,GRAPHS WHERE GRAPHS.ID = a.MAINPAGE;',params)
   ctx.body = chunk
 }
 

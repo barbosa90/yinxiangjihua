@@ -18,21 +18,36 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var t = options.t
     var orderData = JSON.parse(options.orderData)
     var setOrderUnavaliable = this.setOrderUnavaliable
-    var destroyTime = orderData.destroyTime
-    var destroyDT = new Date(destroyTime)
-    var showDestroyTime = destroyDT.toLocaleString()
-    orderData.showDestroyTime = showDestroyTime
-    this.setData({
-      order: orderData
-    })
-    var interval = this.orderCheck(this.data.order)
-    if (orderData.avaliable){
-      setTimeout(function () {
-        setOrderUnavaliable
-      }, interval)
+    if (t) {
+      var destroyTime = orderData.DESTROYTIME
+      var destroyDT = new Date(destroyTime)
+      var showDestroyTime = destroyDT.toLocaleString()
+      orderData.showDestroyTime = showDestroyTime
+    }else{
+      var destroyTime = orderData.DEADLINE
+      var destroyDT = new Date(destroyTime)
+      var deadline = destroyDT.toLocaleString()
+      orderData.deadline = deadline
     }
+    
+    this.setData({
+      order: orderData,
+      t:t
+    })
+    var interval = 0
+    if (t){
+      interval = this.orderCheck(orderData, orderData.showDestroyTime)
+    }else{
+      interval = this.orderCheck(orderData, orderData.deadline)
+    }
+   
+    setTimeout(function () {
+      setOrderUnavaliable
+    }, interval)
+    
     
     console.log(orderData)
   },
@@ -86,18 +101,17 @@ Page({
 
   },
 
-  orderCheck: function (order) {
-    var destroyTime = order.destroyTime
-    var destroyDT = new Date(destroyTime)
+  orderCheck: function (order, time) {
+    var destroyDT = new Date(time)
     var newdatetime = new Date()
     var avaliable = true
     if (destroyDT.getTime() < newdatetime.getTime()) {
-      avaliable = false
+      return 0;
     }
-    order.avaliable = avaliable
-    this.setData({
-      order: order
-    })
+    // order.avaliable = avaliable
+    // this.setData({
+    //   order: order
+    // })
     return newdatetime.getTime() - destroyDT.getTime()
   },
 
@@ -125,19 +139,19 @@ Page({
   cancelConfirmed:function(){
     var order = this.data.order
     var updateData = {
-      id: order.merchid,
-      amount: order.amount
+      id: order.MERCHID,
+      amount: order.AMOUNT
     }
     console.log(updateData)
     var amountUpdate = wxRequest.getRequest(app.globalData.serverUri + "/refillMerch", updateData, {})
     amountUpdate.then(this.amountUpdateSuccessful, this.amountUpdateFail)
-    console.log("恢复商品可购买数量：" + order.amount)
+    console.log("恢复商品可购买数量：" + order.AMOUNT)
   },
   amountUpdateSuccessful:function(result){
       this.updateOrderStatus()
   },
   updateOrderStatus:function(){
-    var orderids = this.data.order.id
+    var orderids = this.data.order.ID
     var data = {
       orderids: orderids,
       to: 2
@@ -150,7 +164,7 @@ Page({
   cancelOrderSuccessful:function(){
     var order = this.data.order
     order.avaliable = false
-    order.payStatus = 2
+    order.PAYSTATUS = 2
     this.setData({
       order:order
     })
@@ -159,11 +173,11 @@ Page({
 
   payOrder:function(){
     var order = this.data.order
-    var pre_order_id = order.id
-    var totalCost = order.finalCost
-    var selfDestroyTime = order.destroyTime
-    var amount = order.amount
-    var merchid = order.merchid
+    var pre_order_id = order.ID
+    var totalCost = order.FINALCOST
+    var selfDestroyTime = order.DESTROYTIME
+    var amount = order.AMOUNT
+    var merchid = order.MERCHID
 
     wx.navigateTo({
       url: '../bill/bill?pre_order_id=' + pre_order_id + "&totalCost=" + totalCost + "&selfDestroy=" + selfDestroyTime + "&amount=" + amount + "&merchid=" + merchid

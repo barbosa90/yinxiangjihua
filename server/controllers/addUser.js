@@ -17,8 +17,9 @@ module.exports = async (ctx, next) => {
   let province = params.province
   let gender = params.gender
   let def_addr = params.def_addr
-  params = [nickname, reg_name, reg_phone, openId, avatarUrl, gender, language, city, province, def_addr, reg_phone, openId];
-  var insertUserString = 'INSERT INTO `User` (`nickname`, `reg_datetime`, `reg_name`, `reg_phone`, `points`, `vip_flag`, `lastLogin`, `openId`, `avatarUrl`, `gender`, `language`, `city`, `province`) VALUES (?, CURRENT_DATE(), ?, ?, "0", "0", CURRENT_TIME(),?,?,?,?,?,?);'
+  let age = params.age
+  params = [nickname, reg_name, reg_phone, openId, avatarUrl, gender, language, city, province, age, def_addr, reg_phone, openId];
+  var insertUserString = 'INSERT INTO `USER` (`NICKNAME`, `REG_DATE`, `REG_NAME`, `REG_PHONE`, `POINTS`, `VIP_FLAG`, `LASTLOGIN`, `OPENID`, `AVATARURL`, `GENDER`, `LANGUAGE`, `CITY`, `PROVINCE`,`AGE`) VALUES (?, CURRENT_DATE(), ?, ?, "0", "0", CURRENT_TIME(),?,?,?,?,?,?,?);'
   var insertAddrString ='CALL createDefAddr(?,?,?);'
   var chunk = await query(insertUserString + insertAddrString,params)
   ctx.body = chunk

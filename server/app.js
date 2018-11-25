@@ -48,7 +48,7 @@ const queryUserPreOrders = require('./controllers/queryUserPreOrders')
 const updatePreOrderStatus = require('./controllers/updatePreOrderStatus')
 const queryOnePreOrder = require('./controllers/queryOnePreOrder')
 const queryUserPaidOrder = require('./controllers/queryUserPaidOrder')
-
+const queryOnePaidOrder = require('./controllers/queryOnePaidOrder')
 
 //test
 const indexSwipper2 = require('./controllers/indexSwipper2')
@@ -96,7 +96,7 @@ app.use(routes.get('/weapp/refillMerch', refillMerch))
 app.use(routes.get('/weapp/queryUserPreOrders', queryUserPreOrders))
 app.use(routes.get('/weapp/updatePreOrderStatus', updatePreOrderStatus))
 app.use(routes.get('/weapp/queryOnePreOrder', queryOnePreOrder))
-
+app.use(routes.get('/weapp/queryOnePaidOrder', queryOnePaidOrder))
 app.use(routes.get('/weapp/queryUserPaidOrders', queryUserPaidOrder))
 
 app.use(routes.get('/weapp/wxpayApi', wxpayApi))

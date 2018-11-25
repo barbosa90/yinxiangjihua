@@ -20,7 +20,7 @@ Page({
     })
   },
   checkStatus:function(checkMerchAmount){//session?
-    if (app.globalData.baseUser.openId == app.globalData.openid ){
+    if (app.globalData.baseUser.OPENID == app.globalData.openid ){
       checkMerchAmount()
     }else{
       wxToast.toastSafe_normal('服务器忙，获取个人信息失败')
@@ -32,9 +32,9 @@ Page({
   queryAmountSuccessful:function(resolve){
     console.log(resolve)
     var amountData = resolve.data[0]
-    var amount = amountData.amount
+    var amount = amountData.AMOUNT
     if (amount > 0) {
-      this.data.merchData.amount = amount //刷新数量 
+      this.data.merchData.AMOUNT = amount //刷新数量 
       this.toPreOrder(this.data.merchData)
     } else {
       wxToast.toastSafe_normal('soldout')
@@ -45,7 +45,7 @@ Page({
   },
   queryOneMerchAmount: function () {
     var queryData = {
-      id: this.data.merchData.id
+      id: this.data.merchData.ID
     }
     var amountQuery = wxRequest.getRequest(this.data.serverUri + "/queryOneMerchAmount", queryData, this.data.header)
     amountQuery.then(this.queryAmountSuccessful, this.queryAmountFail)

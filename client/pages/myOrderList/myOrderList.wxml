@@ -3,9 +3,9 @@
   购物列表
   未支付的：
   <view wx:for="{{preOrderList}}" wx:for-item="p_order" wx:for-index="index" wx:key="id">
-    <view bindtap='queryOnePreOrder' data-orderid="{{p_order.id}}">
+    <view bindtap='queryOneOrder' data-orderid="{{p_order.ID}}" data-type="pre">
     --------------
-      <view>{{p_order.id}}</view>
+      <view>{{p_order.ID}}</view>
     
       <view class="" hover-class='merchHover' data-merchid='' bindtap='toMerchDetail'>
         <view class="" style=''>
@@ -20,14 +20,14 @@
   </view>
   支付的：
   <view wx:for="{{paidOrderList}}" wx:for-item="order" wx:for-index="index" wx:key="id">
-    <view bindtap='queryOneOrder' data-orderid="{{order.id}}">
+    <view bindtap='queryOneOrder' data-orderid="{{order.ORDERID}}" data-type="paid">
     --------------
-      <view>{{order.id}}</view>
+      <view>{{order.ID}}</view>
     
       <view class="" hover-class='merchHover' data-merchid='' bindtap='toMerchDetail'>
         <view class="" style=''>
           状态：完成支付
-          失效时间：{{order.showDeadLine}}
+          使用过期时间：{{order.showDeadLine}}
           <view class="" wx:if="{{order.avaliable}}" style='color:blue'>
           退款
           </view>
