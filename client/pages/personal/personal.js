@@ -226,7 +226,7 @@ Page({
       reg_phone: formValue.reg_phone.trim(),
       city: formValue.city.trim(),
       province: formValue.province.trim(),
-      id: this.data.baseUser.id
+      id: this.data.baseUser.ID
       // nickname: this.data.globalUserInfo.nickName,
       // openId: this.data.openid,
       // avatarUrl: this.data.globalUserInfo.avatarUrl,
