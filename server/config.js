@@ -17,20 +17,20 @@ const CONF = {
      * 开发环境下，MySQL 的初始密码为您的微信小程序 appid
      */
     mysql: {
-      host: 'localhost',
-      port: 3306,
-     // host: 'd.yinxiangjihua.cn',
-     // port: 63583,
+     // host: 'localhost',
+     // port: 3306,
+      host: 'd.yinxiangjihua.cn',
+      port: 63583,
       user: 'root',
       database: 'YINXIANG',
       password: 'wx2be3c27f24305fe4',
       charset: 'UTF8MB4_GENERAL_CI'
     },
     multiMysql: {
-      host: 'localhost',
-      port: 3306,
-     // host: '140.143.92.13',
-     // port: 63583,
+      //host: 'localhost',
+      //port: 3306,
+      host: '140.143.92.13',
+      port: 63583,
       user: 'root',
       database: 'YINXIANG',
       password: 'wx2be3c27f24305fe4',
