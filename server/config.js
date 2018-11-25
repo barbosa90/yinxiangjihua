@@ -19,11 +19,11 @@ const CONF = {
     mysql: {
       host: 'localhost',
       port: 3306,
-     // host: 'd.yinxiangjihua.cn',
-     // port: 63583,
+      //host: 'd.yinxiangjihua.cn',
+      //port: 63583,
       user: 'root',
       database: 'YINXIANG',
-      password: 'wx2be3c27f24305fe4',
+      password: '',//wx2be3c27f24305fe4
       charset: 'UTF8MB4_GENERAL_CI'
     },
     multiMysql: {
@@ -33,7 +33,7 @@ const CONF = {
      // port: 63583,
       user: 'root',
       database: 'YINXIANG',
-      password: 'wx2be3c27f24305fe4',
+      password: '',//wx2be3c27f24305fe4
       charset: 'UTF8MB4_GENERAL_CI',
       multipleStatements: true
     },
