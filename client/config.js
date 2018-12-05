@@ -3,7 +3,7 @@
  */
 
 // 此处主机域名修改成腾讯云解决方案分配的域名
-var host = 'https://hvb9jjr1.qcloud.la';//https://hvb9jjr1.qcloud.la
+var host = 'https://www.yinxiangjihua.cn';//https://hvb9jjr1.qcloud.la
 //https://www.yinxiangjihua.cn
 var config = {
 
