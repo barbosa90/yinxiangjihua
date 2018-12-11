@@ -1,4 +1,5 @@
 <!--client/pages/merchList/merchList.wxml-->
+<scroll-view bindscrolltolower="goLower">
 <picker mode="region" bindchange="bindRegionEvent" data-model="component" 
 data-method="bindSelect" data-name="region" value="" custom-item="">
 <view class="picker">
@@ -9,7 +10,7 @@ data-method="bindSelect" data-name="region" value="" custom-item="">
       {{msg}}
 </view>
 </picker>
-<view class="mainList" style='margin-top:5px;margin-bottom:55px;background-color:blue'>
+<view class="mainList" style='margin-top:5px;background-color:blue'>
     主页商品罗列 商品
     <view wx:for="{{merchList}}" wx:for-item="merch" wx:for-index="index" wx:key="id">
     <view class="merchName" >
@@ -26,5 +27,8 @@ data-method="bindSelect" data-name="region" value="" custom-item="">
         </view>
       </view>
     </view>
-    <button style="height:50px" bindtap='next'>next</button>
   </view>
+  <view class="next" style="height:30px" bindtap='next'>
+  <text class="nexttext">{{next}}</text>
+  </view>
+  </scroll-view>

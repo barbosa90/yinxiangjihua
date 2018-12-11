@@ -13,9 +13,10 @@ Page({
   data: {
     merchList:[],
     page: 1,
-    quantity: 1,
+    quantity: 2,
     region:[],
-    condition:''
+    condition:'',
+    next:'轻触加载更多'
   },
 
   /**
@@ -23,8 +24,14 @@ Page({
    */
   onLoad: function (options) {
     this.query_numbersOf_Merch(this.data.quantity,this.data.page)
+    
   },
-
+  onPageScroll: function(distance){
+    console.log(distance)
+  },
+  goLower: function(){
+    console.log("l")
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -93,9 +100,15 @@ Page({
     var datas = value.data
     if (datas.length == 0){
       wxToast.toastSafe_short("到底了")
+      this.setData({
+        next: '没有更多啦'
+      })
       this.data.page--
       return
     }
+    this.setData({
+      next: '轻触加载更多'
+    })
     for (var i = 0; i < datas.length; i++) {
       try {
         if (datas[i].GRAPH_BLOB != null) {
@@ -123,6 +136,9 @@ Page({
     // urls[1] = 'https://indexswiper-1256803452.cos.ap-beijing.myqcloud.com/swiper_1.jpg?sign=q-sign-algorithm%3Dsha1%26q-ak%3DAKIDWoCcexIG0paklJVtkpGvFFqjYw14akWF%26q-sign-time%3D1531229733%3B1531231533%26q-key-time%3D1531229733%3B1531231533%26q-header-list%3D%26q-url-param-list%3D%26q-signature%3D206aacc8282a762601a28697714390744f6dbbd8&token=1d04292c0b7c42fca53b3fc4566b81530165eb6610001&clientIP=114.245.171.185&clientUA=fcf0c313-a398-426a-ac4f-b0521e541c84'
   },
   next:function(){
+    this.setData({
+      next:'加载中...'
+    })
     var condition = this.data.condition
     this.data.page++;
     if (condition == ''){
@@ -168,13 +184,18 @@ Page({
   },
   regionMerchCallback_Successful:function(result){
     console.log(result)
-    
     var newList = result.data
     if (newList.length == 0) {
       wxToast.toastSafe_short("到底了")
+      this.setData({
+        next: '没有更多啦'
+      })
       this.data.page--
       return;
     }
+    this.setData({
+      next: '轻触加载更多'
+    })
     if(result.data.length == 0){
       newList = []
       this.data.page--

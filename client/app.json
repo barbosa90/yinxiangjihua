@@ -20,6 +20,37 @@
     "navigationBarTitleText": "音享计划",
     "navigationBarTextStyle": "black"
   },
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "pages/assets/images/home.png",
+        "selectedIconPath": "pages/assets/images/home-sel.png"
+      },
+      {
+        "pagePath": "pages/merchList/merchList",
+        "text": "列表",
+        "iconPath": "pages/assets/images/list.png",
+        "selectedIconPath": "pages/assets/images/list-sel.png"
+      },
+      {
+        "pagePath": "pages/myOrderList/myOrderList",
+        "text": "订单",
+        "iconPath": "pages/assets/images/order.png",
+        "selectedIconPath": "pages/assets/images/order-sel.png"
+      },
+      {
+        "pagePath": "pages/personal/personal",
+        "text": "我",
+        "iconPath": "pages/assets/images/me.png",
+        "selectedIconPath": "pages/assets/images/me-sel.png"
+      }
+    ],
+    "backgroundColor": "#000000",
+    "color": "#ffffff",
+    "selectedColor": "#ff0"
+  },
   "locaiton": {
     "110000": {
       "name": "北京市",

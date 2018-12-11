@@ -33,6 +33,9 @@
 <view wx:if="{{t=='paid'}}">
   <view class="" bindtap='use' wx:if="{{order.avaliable}}" style='color:blue'>
   去使用
+  <view class="serial">
+    <!-- {{results.result.SERIALNUMBER}} -->
+  </view>
   </view>
   <view class="" bindtap='refundOrder' wx:if="{{order.avaliable}}" style='color:blue'>
   申请退款

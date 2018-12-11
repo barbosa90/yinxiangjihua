@@ -1,1 +1,4 @@
 /* pages/myOrderList/myOrderList.wxss */
+.noOrderPic{
+  height:400px
+}

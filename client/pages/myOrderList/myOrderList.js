@@ -36,6 +36,17 @@ Page({
   onShow: function () {
     this.queryOnesPreOrders(app.globalData.baseUser.ID)
     this.queryOnesPaidOrders(app.globalData.baseUser.ID)
+    var prol = this.data.preOrderList
+    var paol = this.data.paidOrderList
+    if (prol != null && prol.length > 0 && paol != null && paol.length > 0 ){
+      this.setData({
+        msg:""
+      })
+    }else{
+      this.setData({
+        msg: "none"
+      })
+    }
   },
 
   /**

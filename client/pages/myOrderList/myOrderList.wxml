@@ -1,7 +1,10 @@
 <!--pages/myOrderList/myOrderList.wxml-->
 <view class="mainList" style='margin-top:5px;margin-bottom:55px;background-color:milk'>
   购物列表
-  未支付的：
+  <image class="noOrderPic" wx:if="{{msg=='none'}}" src='img/noOrders.png'></image>
+  <view wx:if="{{msg!='none'}}">
+    未支付的：
+  </view>
   <view wx:for="{{preOrderList}}" wx:for-item="p_order" wx:for-index="index" wx:key="id">
     <view bindtap='queryOneOrder' data-orderid="{{p_order.ID}}" data-type="pre">
     --------------
@@ -18,7 +21,9 @@
       </view> 
     </view> 
   </view>
-  支付的：
+  <view wx:if="{{msg!='none'}}">
+    支付的：
+  </view>
   <view wx:for="{{paidOrderList}}" wx:for-item="order" wx:for-index="index" wx:key="id">
     <view bindtap='queryOneOrder' data-orderid="{{order.ORDERID}}" data-type="paid">
     --------------
