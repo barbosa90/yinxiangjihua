@@ -8,7 +8,6 @@ import toast from '../../utils/toast.js'
 const wxToast = new toast
 Page({
   data: {
-    serverUri: 'https://hvb9jjr1.qcloud.la/weapp',//'https://www.yinxiangjihua.cn/weapp', //'https://hvb9jjr1.qcloud.la/weapp',
     motto: 'aliIconfont icon-user',//'完善信息',//
     userInfo: {},
     hasUserInfo: false,
