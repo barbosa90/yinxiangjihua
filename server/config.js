@@ -27,7 +27,7 @@ const CONF = {
       charset: 'UTF8MB4_GENERAL_CI'
     },
     multiMysql: {
-      host: 'localhost',
+      host: '118.25.234.108',
       port: 3306,
      // host: '140.143.92.13',
      // port: 63583,
