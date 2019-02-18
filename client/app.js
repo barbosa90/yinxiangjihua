@@ -43,11 +43,11 @@ App({
             }, function (rej) {
               if (rej.statusCode == 502){
                 wx.navigateTo({
-                  url: 'pages/error/error?errCode=' + rej.statusCode + "&errMsg="+rej.error
+                  url: '/pages/error/error?errCode=' + rej.statusCode + "&errMsg="+rej.error
                 })
               }else{
                 wx.navigateTo({
-                  url: 'pages/error/error?errCode=' + rej.statusCode + "&errMsg=" + rej.error
+                  url: '/pages/error/error?errCode=' + rej.statusCode + "&errMsg=" + rej.error
                 })
               }
             }
